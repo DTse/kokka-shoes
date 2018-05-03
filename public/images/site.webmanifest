@@ -1,0 +1,19 @@
+{
+    "name": "Kokka CMS",
+    "short_name": "Kokka CMS",
+    "icons": [
+        {
+            "src": "/images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#36304a",
+    "background_color": "#36304a",
+    "display": "standalone"
+}

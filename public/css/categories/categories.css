@@ -1,0 +1,111 @@
+tbody > tr > td.column5{
+	display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 1;
+	justify-content: space-evenly;
+	padding: 1vh 0vh;
+}
+
+.edit-button, .view-button{
+    margin-top:0 !important;
+}
+
+@media screen and (max-width: 1090px){
+    .edit-button, .view-button{
+        margin-top:2vh !important;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1258px){
+	tbody > tr > td.column5 {
+		padding-bottom: 10px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	table {
+		display: block;
+	}
+	table > *,
+	table tr,
+	table td,
+	table th {
+		display: block;
+	}
+	table thead {
+		display: none;
+	}
+	table tbody tr {
+		height: auto;
+		padding: 37px 0;
+	}
+	table tbody tr td {
+		padding-left: 40% !important;
+		margin-bottom: 24px;
+	}
+	table tbody tr td:last-child {
+		margin-bottom: 0;
+	}
+	table tbody tr td:before {
+        font-family: 'Roboto', sans-serif;
+		font-size: 14px;
+		color: #999999;
+		line-height: 1.2;
+		font-weight: unset;
+		position: absolute;
+		width: 40%;
+		left: 30px;
+		top: 0;
+	}
+	table tbody tr td:nth-child(1):before {
+		content: "Κωδικός"!important;
+	}
+	table tbody tr td:nth-child(2):before {
+		content: "Όνομα GR"!important;
+	}
+	table tbody tr td:nth-child(3):before {
+		content: "Όνομα EN"!important;
+	}
+	table tbody tr td:nth-child(4):before {
+		content: "Slug"!important;
+	}
+	table tbody tr td:nth-child(5):before {
+		content: ""!important;
+	}
+	table tbody tr td:nth-child(6):before {
+		content: "";
+	}
+	table tbody tr td:nth-child(7):before {
+		content: "";
+	}
+	table tbody tr td:nth-child(8):before {
+		content: "";
+	}
+	table tbody tr td:nth-child(9):before {
+		content: "";
+	}
+
+	.column4,
+	.column5,
+	.column6 {
+		text-align: left;
+    }
+    
+    tbody > tr > td.column5{
+		padding: 0px 15px !important;
+	}
+
+	.column4,
+	.column5,
+	.column6,
+	.column1,
+	.column2,
+	.column3 {
+		width: 100%;
+	}
+
+	tbody tr {
+		font-size: 14px;
+	}
+}

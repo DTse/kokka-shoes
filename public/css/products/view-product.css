@@ -1,0 +1,434 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+td > img{
+	height: 100px;
+    width: 100px;
+    margin: 6px 0px 6px 7px;
+    object-fit: cover;
+	border-radius: 50%;
+	border: 1.3px solid #36304a;
+}
+
+.edit-button, .delete-button{
+    background-color: #36304a;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 14px 20px 14px 20px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    top: -5px;
+    margin: 0px 25px;
+}
+
+a {
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+	margin: 0px;
+}
+
+ul,
+li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+input {
+	display: block;
+	outline: none;
+	border: none !important;
+}
+
+textarea {
+	display: block;
+	outline: none;
+}
+
+textarea:focus,
+input:focus {
+	border-color: transparent !important;
+}
+
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+iframe {
+	border: none !important;
+}
+
+.container-table {
+	width: 99%;
+	min-height: 100vh;
+	background: #c850c0;
+	background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
+	background: -o-linear-gradient(45deg, #4158d0, #c850c0);
+	background: -moz-linear-gradient(45deg, #4158d0, #c850c0);
+	background: linear-gradient(45deg, #4158d0, #c850c0);
+    font-family: 'Roboto', sans-serif;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 33px 30px;
+}
+
+.wrap-table {
+	width: 100%;
+    margin: 2.5em 0;
+}
+
+.column1,
+.column2{
+	width: 50%;
+}
+
+input[type="file"] {
+    display: none !important;
+}
+.custom-file-upload {
+    display: block;
+    padding: 10px 0px 10px 0px;
+    margin: 10px 25px;
+    background-color: #e4e3e3;
+    border: none;
+    width: 90%;
+    outline: none;
+    font-size: 15px !important;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}
+
+input[type="text"], select{
+    display: block;
+    padding: 10px;
+    margin: 10px 0px;
+    background-color: #e4e3e3;
+    border: none;
+    width: 90%;
+    outline: none;
+    font-size: 15px !important;
+    font-family: 'Roboto', sans-serif;
+}
+
+tbody > tr > td.column1{
+    padding-left: 25px;
+}
+
+
+
+tbody > tr > td.column9,
+tbody > tr > td.column8,
+tbody > tr > td.column6{
+    padding-left: 25px;
+}
+
+table {
+	border-spacing: 1;
+	border-collapse: collapse;
+	background: white;
+	border-radius: 10px;
+	overflow: hidden;
+	width: 95%;
+	margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}
+table * {
+	position: relative;
+}
+table td,
+table th {
+    padding-left: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+table thead tr {
+	height: 60px;
+	background: #36304a;
+}
+table tbody tr {
+	height: 50px;
+}
+table tbody tr:last-child {
+	border: 0;
+}
+table td,
+table th {
+	text-align: left;
+}
+table td.l,
+table th.l {
+	text-align: right;
+}
+table td.c,
+table th.c {
+	text-align: center;
+}
+table td.r,
+table th.r {
+	text-align: center;
+}
+
+.table-head th {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	color: #fff;
+	line-height: 1.2;
+	font-weight: unset;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #f5f5f5;
+}
+
+tbody tr {
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+	color: #808080;
+	line-height: 1.2;
+	font-weight: unset;
+}
+
+tbody tr:hover {
+	color: #555555;
+	background-color: #f5f5f5;
+	cursor: pointer;
+}
+
+
+/* Customize the label (the container) */
+#hide-checkbox{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  #hide-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  #hide-checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  #hide-checkbox input:checked ~ .checkmark {
+    background-color: #36304a;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  #hide-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  #hide-checkbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+@media screen and (max-width: 992px) {
+	table {
+		display: block;
+	}
+	table > *,
+	table tr,
+	table td,
+	table th {
+		display: block;
+	}
+	table thead {
+		display: none;
+	}
+	table tbody tr {
+		height: auto;
+		padding: 37px 0;
+	}
+	table tbody tr td {
+		padding-left: 40% !important;
+		margin-bottom: 24px;
+		
+        font-size: 3vw !important;
+	}
+	table tbody tr td:last-child {
+		margin-bottom: 0;
+	}
+	table tbody tr td:before {
+		font-family: 'Roboto', sans-serif;
+		margin-top: 25px;
+        font-size: 3vw !important;
+		color: #999999;
+		line-height: 1.2;
+		font-weight: unset;
+		position: absolute;
+		width: 40%;
+		left: 30px;
+		top: 0;
+	}
+	table tbody tr td:nth-child(1):before {
+		content: "Εικόνα";
+    }
+    table tbody tr td:nth-child(1) > label{
+        display: none;
+    }
+	table > tbody > tr:nth-child(2) > td.column1:before {
+		content: "Κωδικός";
+	}
+	table > tbody > tr:nth-child(3) > td.column1:before {
+		content: "Slug";
+	}
+	table > tbody > tr:nth-child(4) > td.column1:before {
+		content: "Περιγραφή GR";
+	}
+	table > tbody > tr:nth-child(5) > td.column1:before {
+		content: "Περιγραφή EN";
+	}
+	table > tbody > tr:nth-child(6) > td.column1:before {
+		content: "Υψος";
+	}
+	table > tbody > tr:nth-child(7) > td.column1:before {
+		content: "Υψος Φίαπας";
+    }
+	table > tbody > tr:nth-child(8) > td.column1:before {
+		content: "Ύψος Τακουνίου";
+	}
+	table > tbody > tr:nth-child(9) > td.column1:before {
+		content: "Κατηγορία";
+	}
+	table > tbody > tr:nth-child(10) > td.column1:before {
+		content: "Χρώματα GR";
+    }
+	table > tbody > tr:nth-child(11) > td.column1:before {
+		content: "Χρώματα EN";
+    }
+    table > tbody > tr:nth-child(12) > td.column1 {
+		display: none;
+	}
+	
+	table > tbody > tr:nth-child(12) > td.column2{
+		width:50%;
+	}
+    .edit-button {
+		background-color: #36304a;
+		border-radius: 10px;
+		text-decoration: none;
+		padding: 14px 20px 14px 20px;
+		color: white;
+		font-family: 'Roboto', sans-serif;
+		display: block;
+		bottom: 0;
+		top: unset;
+		right: 0;
+		position: absolute;
+		margin: 0
+    }
+
+	.column4,
+	.column5,
+	.column6 {
+		text-align: left;
+	}
+
+	.column4,
+	.column5,
+	.column6,
+	.column1,
+	.column2,
+	.column3 {
+		width: 100%;
+	}
+
+
+	tbody tr {
+		font-size: 14px;
+	}
+}
+
+@media (max-width: 576px) {
+	.container-table {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
