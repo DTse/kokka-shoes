@@ -60,19 +60,20 @@ class Product extends Component {
 						</div> 
 					</div>
 					<div className="product-info">
-						<div className="product-name"><h1>Test</h1></div>
+						<div className="product-name product-page"><h1>Test</h1></div>
 						<div className="product-code">Κωδικός: Test</div>
 						<div className="product-heights">
 							Ύψος Τακουνιού: 10εκ.<br/>
 							Ύψος Φιάπας: 2εκ.
 						</div>
-						<div className="product-colors">Χρώμα: <br /><br/>
-                            <span><select>
+						<div className="product-colors">Χρώμα:</div>
+                            <div className="product-colors"><span><select>
                                 <option autoFocus value="volvo">Γκριζο</option>
                                 <option value="saab">Καφε</option>
                             </select></span>
                         </div>
-						<div className="product-sizes"><span>Μεγέθη:</span> <br /><span className="size" >35</span><span className="size">36</span><span className="size">37</span><span className="size">38</span></div>
+						<div className="product-sizes"><span>Μεγέθη:</span></div>
+						<div className="product-sizes"><span className="size" >35</span><span className="size">36</span><span className="size">37</span><span className="size">38</span></div>
 						<div className="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
 						<div className="product-social">
 							<a href="#">

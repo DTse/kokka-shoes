@@ -1,0 +1,14 @@
+# dependencies
+/kokkashoes/node_modules/public/images /public/hot /public/storage 
+/storage/*.key /vendor /.idea /.vagrant Homestead.json Homestead.yaml 
+npm-debug.log yarn-error.log .env
+# testing
+/kokkashoes/coverage
+# production
+/kokkashoes/build
+# misc
+/kokkashoes/.DS_Store /kokkashoes/.env.local 
+/kokkashoes/.env.development.local /kokkashoes/.env.test.local 
+/kokkashoes/.env.production.local /kokkashoes/npm-debug.log* 
+/kokkashoes/yarn-debug.log*
+/kokkashoes/yarn-error.log*

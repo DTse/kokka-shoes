@@ -286,7 +286,7 @@ html,
 /*******************/
 
 .full-menu {
-	font-size: 1.4em;
+	font-size: 1.3em;
 }
 
 .catalog-menu > ul{
@@ -620,6 +620,10 @@ html,
     margin-bottom: 25px;
     text-align: center;
 }
+
+.product-name.product-page{
+	text-align: left;
+}
 .product-name h1 {
     font-size: 3.5em;
     letter-spacing: 0px;
@@ -659,7 +663,8 @@ html,
 	color: #404040;
 }
 .product-sizes {
-    font-size: 1rem;
+	font-size: 1rem;
+	margin: 5px 0px!important;
 }
 .product-colors,
 .product-heights,
@@ -677,6 +682,7 @@ html,
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin: 5px 0px;
 }
 .product-colors .color,
 .product-sizes .size{
@@ -695,7 +701,6 @@ html,
 .product-colors select{
     display: block;
     width: 150px;
-    margin: 5px 10px;
     padding: 4px;
     background-color: #fff;
     border: 1px solid #21212170;
@@ -784,7 +789,7 @@ html,
 	align-items: center;
 	padding: 100px 10px;
 	font-style: normal;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     letter-spacing: .02em;
     line-height: 1.8em;
 	align-items: center;
@@ -799,6 +804,7 @@ html,
 	height: 200px;
 	display: flex;
 	margin-left: 50px;
+	font-size: 1.5rem;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -815,7 +821,7 @@ html,
 	align-items: center;
 	color: gray;
 	font-style: normal;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     letter-spacing: .02em;
     line-height: 1.8em;
 	min-height: 450px;

@@ -38,9 +38,9 @@
                                     @endif
                                 @endforeach
                             <td class="column5">{{ $cell->visits }}</td>
-                            <td colspan="2" class="column6"><a class="view-button" href="/view-product/{{$cell->product_code}}"><i class="fas fa-eye"></i><label>Προβολή</label></a><a class="edit-button" href="/edit-product/{{$cell->product_code}}"><i class="fas fa-edit"></i><label>Επεξεργασία</label></a><a class="delete-button" href="/delete-product/{{$cell->product_code}}"><i class="fas fa-trash-alt"></i><label>Διαγραφη<label></a></td>
+                            <td colspan="2" class="column6"><a class="view-button" href="/view-product/{{$cell->product_code}}"><i class="fas fa-eye"></i><label>Προβολή</label></a><a class="edit-button" href="/edit-product/{{$cell->product_code}}"><i class="fas fa-edit"></i><label>Επεξεργασία</label></a><a class="copy-button" href="/copy-product/{{$cell->product_code}}"><i class="fas fa-copy"></i><label>Αντιγραφή<label></a><a class="delete-button" href="/delete-product/{{$cell->product_code}}"><i class="fas fa-trash-alt"></i><label>Διαγραφη<label></a></td>
                         </tr>
-                    @endforeach                    
+                    @endforeach
                 </tbody>
             </table>
         </div>

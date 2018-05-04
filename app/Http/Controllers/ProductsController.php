@@ -27,7 +27,7 @@ class ProductsController extends Controller {
 
   public function index() {
 
-    $products = Products::limit(25)->get();
+    $products = Products::paginate(10);
     $categories = Categories::all();
     
     return view('products.products')->with(compact('products', 'categories'));
@@ -90,7 +90,7 @@ class ProductsController extends Controller {
             $i =0;
             foreach($images as $color){
                 foreach($color as $image){
-                    $name = $colors_en[$i].'-'.$request->product_code.'-'.str_slug($request->name_en, '-').'.'.$image->getClientOriginalExtension();
+                    $name = $colors_en[$i].'-'.str_slug($request->name_en, '-').'.'.$image->getClientOriginalExtension();
                     $file = $image->storeAs('/images/shoes/'.$request->product_code, $name);
                     $imageArr[$i][] = $name;
                 }
@@ -124,7 +124,7 @@ class ProductsController extends Controller {
             // redirect
             Session::flash('message', 'Successfully created category!');
 
-            $products = Products::limit(25)->get();
+            $products = Products::paginate(10);
             $categories = Categories::all();
             
             return view('products.products')->with(compact('products', 'categories'));
@@ -146,13 +146,20 @@ class ProductsController extends Controller {
         
         return view('products.edit-product')->with(compact('product', 'categories'));
     }
+    public function copyProductView($id){
+        
+        $product = Products::where('product_code', $id)->first();
+        $categories = Categories::all();
+        
+        return view('products.copy-product')->with(compact('product', 'categories'));
+    }
     public function deleteProduct($id){
         
         $product = Products::where('product_code', $id)->first();
         if($product->images != null || $product->images != ''){File::deleteDirectory('images/shoes/'.$id);}
         $product->delete();
         $categories = Categories::all();
-        $products = Products::limit(25)->get();
+        $products = Products::paginate(10);
 
         Session::flash('message', 'Successfully deleted product!');
         return view('products.products')->with(compact('products', 'categories'));
@@ -232,7 +239,7 @@ class ProductsController extends Controller {
 
             if($request->slug != null || $request->name_en !=$products->name_en){
                 $product->slug            = str_slug($request->name_en, '-');
-                $product->slug            = $product->slug.'-'.$product->product_code;
+                $product->slug            = $request->slug.'-'.$product->product_code;
             }
             $sizes = json_encode($request->sizes); 
             if($request->name_en != null){$product->name_en                = $request->name_en;}
@@ -253,7 +260,7 @@ class ProductsController extends Controller {
 
             // redirect
             Session::flash('message', 'Successfully created product!');
-            $products = Products::limit(25)->get();
+            $products = Products::paginate(10);
             return view('products.products')->with(compact('products', 'categories'));
         }
     }

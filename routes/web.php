@@ -16,6 +16,9 @@ Route::get('/view-product/{id}', 'ProductsController@viewProduct');
 Route::get('/edit-product/{id}', 'ProductsController@editProductView');
 Route::post('/edit-product/{id}', 'ProductsController@editProduct');
 Route::get('/delete-product/{id}', 'ProductsController@deleteProduct');
+Route::get('/copy-product/{id}', 'ProductsController@copyProductView');
+Route::post('/enable-product/{id}', 'RequestController@enableRequest');
+Route::post('/sticky-product/{id}', 'RequestController@orderRequest');
 
 //Categories
 Route::get('/categories', 'CategoriesController@index');
@@ -24,6 +27,3 @@ Route::post('/add-category', 'CategoriesController@store');
 Route::get('/view-category/{id}', 'CategoriesController@viewCategory'); 
 Route::get('/edit-category/{id}', 'CategoriesController@editCategoryView');
 Route::post('/edit-category/{id}', 'CategoriesController@editCategory');
-
-Route::post('/enable-product/{id}', 'RequestController@enableRequest');
-Route::post('/sticky-product/{id}', 'RequestController@orderRequest');
