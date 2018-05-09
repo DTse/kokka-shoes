@@ -2,14 +2,14 @@
 
 @section('header')
     <link href="{{ URL::asset('css/products/add-product.css') }}" rel="stylesheet" type="text/css" >
-    <link href="{{ URL::asset('css/dashboard.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ URL::asset('css/dashboard.css') }}" rel="stylesheet" type="text/css" > 
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 @stop
 
 @section('main-content')
 <div class="wrapper">
     <div class="wrap-table">
-        <form method="POST" action="/add-product" enctype="multipart/form-data">
+        <form method="POST" action="/add-product" enctype="multipart/form-data" >
             {{ csrf_field() }}
             <div class="table">
                 <table>
@@ -40,11 +40,15 @@
                                             <legend>Χρώμα 1<div id="delete-color" class="delete-color" onclick="colorDelete(1)"><i class="fas fa-trash-alt"></i></div></legend>
                                             Όνομα GR<input id="color_1_gr" type="text" name="colors_gr[]" class="" style="background-color: white; margin-left: 0px; margin-right: 0px">
                                             Όνομα EN<input id="color_1_en" type="text" name="colors_en[]" class="" style="background-color: white; margin-left: 0px; margin-right: 0px">
-                                            <label id="color-1-upload-label" for="image_color_1" class="custom-file-upload" onclick="imagePreview(1)" style="width: fit-content; overflow-x:hidden; max-height: 100px;">
-                                                <i id="color-1-upload-icon" style="margin: 0 auto; padding: 0px 20px" class="fas fa-upload"></i>
-                                                <span id="color-1-image-name" class="color-image-span">Image Upload</span>
+                                            <div id="images-upload-1" class="images-upload" style="overflow-x: hidden; max-height: 250px">
+                                            <div id="upload-1-1">
+                                                <label id="color-1-upload-label-1" for="image_color_1_1" class="custom-file-upload" onclick="imagePreview(1,1)" style="overflow-x:hidden; max-height: 115px;">
+                                                <i id="color-1-upload-icon-1" style="margin: 0 auto; padding: 0px 20px" class="fas fa-upload"></i>
+                                                <span id="color-1-image-name-1" class="color-image-span">Image Upload</span>
                                             </label>
-                                            <input id="image_color_1" name="images[0][]" accept="image/*" type="file" multiple/>
+                                            <input id="image_color_1_1" name="images[0][]" accept="image/*" type="file"/>
+                                        </div>
+                                    </div>
                                         </fieldset>
                                         <div id="add-color" onclick="addNewColor()"><i style="padding: 0px 20px;" class="fas fa-plus"></i> <span id="image-name">Προσθήκη χρώματος</span><div>
                                     </label></td></tr> 
@@ -59,26 +63,48 @@
 @stop
 
 @section('add-product-script')
-    <script>
-        imagePreview = (imageInput)=>{
-            var colorsChange = document.getElementById('image_color_'+imageInput);
+     <script>
+        imagePreview = (colorIncr,imageInput)=>{
+            var colorsChange = document.getElementById('image_color_'+colorIncr+'_'+imageInput);
 
             colorsChange.onchange = function(){
                 var newInput = document.createElement('input');
                 var parent = document.getElementById('colors');
                 console.log(colorsChange.files);
-                document.getElementById('color-'+imageInput+'-image-name').style.display = 'none';
-                document.getElementById('color-'+imageInput+'-upload-label').style.backgroundColor ='unset';
+                document.getElementById('color-'+colorIncr+'-image-name-'+imageInput).style.display = 'none';
+                document.getElementById('color-'+colorIncr+'-upload-label-'+imageInput).style.backgroundColor ='unset';
                 Array.prototype.forEach.call(colorsChange.files, function(file) { 
                     
                     var newImage = document.createElement('img');
                     newImage.src = URL.createObjectURL(file);
-                    var el = document.getElementById('color-'+imageInput+'-upload-icon');
+                    var el = document.getElementById('color-'+colorIncr+'-upload-icon-'+imageInput);
                     el.style.display ="none"
-                    el.parentNode.appendChild(newImage, el)
-
+                    el.parentNode.appendChild(newImage, el);                  
                 });
+                
+                var deleteDiv = document.getElementById('upload-'+colorIncr+'-'+imageInput);
+                    var deleteButton = document.createElement('div');
+                    deleteButton.id="delete-color";
+                    deleteButton.className="delete-color";
+                    deleteButton.innerHTML = `<i onclick='imageDelete(${colorIncr},${imageInput})' class="fas fa-trash-alt">`;
+                    deleteDiv.insertBefore(deleteButton, deleteDiv.firstChild);
+                    var uploadMore = document.createElement('div');
+                    uploadMore.id = 'upload-'+colorIncr+'-'+(imageInput+1);
+                    uploadMore.innerHTML = `<label id="color-${colorIncr}-upload-label-${imageInput+1}" for="image_color_${colorIncr}_${imageInput+1}" class="custom-file-upload" onclick="imagePreview(${colorIncr},${imageInput+1})" style="overflow-x:hidden; max-height: 115px;">
+                                                <i id="color-${colorIncr}-upload-icon-${imageInput+1}" style="margin: 0 auto; padding: 0px 20px" class="fas fa-upload"></i>
+                                                <span id="color-${colorIncr}-image-name-${imageInput+1}" class="color-image-span">Image Upload</span>
+                                            </label>
+                                            <input id="image_color_${colorIncr}_${imageInput+1}" name="images[0][]" accept="image/*" type="file"/>`;
+                    var colorInput = document.getElementById('images-upload-'+colorIncr);
+                    colorInput.insertBefore(uploadMore, colorInput.firstChild);  
             } 
+        }
+
+        imageDelete =(image, color)=>{
+            var imageDiv = document.getElementById('upload-'+color+'-'+image);
+            var deleteImage = imageDiv.getElementsByTagName('input')[0];
+            deleteImage.value ="";
+            imageDiv.parentElement.removeChild(imageDiv);
         }
 
         addNewColor = () =>{
@@ -97,11 +123,15 @@
             newColor.innerHTML = `<legend>Χρώμα ${colorID}<div id="delete-color" class="delete-color" onclick="colorDelete(${colorID})"><i class="fas fa-trash-alt"></i></div></legend>
                                     Όνομα GR<input id="color_${colorID}_gr" type="text" name="colors_gr[]" class="" style="background-color: white; margin-left: 0px; margin-right: 0px">
                                     Όνομα EN<input id="color_${colorID}_en" type="text" name="colors_en[]" class="" style="background-color: white; margin-left: 0px; margin-right: 0px">
-                                    <label id="color-${colorID}-upload-label" for="image_color_${colorID}" class="custom-file-upload" onclick="imagePreview(${colorID})" style="width: fit-content; overflow-x:hidden; max-height: 100px;">
-                                        <i id="color-${colorID}-upload-icon" style="margin: 0 auto; padding: 0px 20px" class="fas fa-upload"></i>
-                                        <span id="color-${colorID}-image-name" class="color-image-span">Image Upload</span>
+                                    <div id="images-upload-${colorID}" class="images-upload" style="overflow-x: hidden; max-height: 250px">
+                                    <div id="upload-${colorID}-1">
+                                    <label id="color-${colorID}-upload-label-1" for="image_color_${colorID}_1" class="custom-file-upload" onclick="imagePreview(${colorID},1)" style="overflow-x:hidden; max-height: 115px;">
+                                        <i id="color-${colorID}-upload-icon-1" style="margin: 0 auto; padding: 0px 20px" class="fas fa-upload"></i>
+                                        <span id="color-${colorID}-image-name-1" class="color-image-span">Image Upload</span>
                                     </label>
-                                    <input id="image_color_${colorID}" name="images[${colorID-1}][]" accept="image/*" type="file" multiple/>`
+                                    <input id="image_color_${colorID}_1" name="images[${colorID-1}][]" accept="image/*" type="file" multiple/>
+                                </div>
+                                    </div>`
                                  
             document.getElementById('colors').insertBefore(newColor, addColorContainer)
         }

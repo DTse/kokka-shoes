@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../../App.css';
-import { Helmet } from 'react-helmet';
 
-import { pwaMetas, linkPwaMetas } from '../../pwaMetas';
+import axios from 'axios';
 
 //Main Screen Components
 import ProductsGrid from '../index/productsGrid';
@@ -13,16 +12,39 @@ import MidImage from '../index/midImage';
 import Footer from '../../components/footer';
 
 class Home extends Component {
+    constructor(props){
+        super(props)
+        
+        this.state = {
+          products: [],
+          isLoading: true
+        };
+      }
+    
+    componentDidMount(){
+        axios.get('http://cms.kokkashoes.tk/api/products').then((result)=>{
+            console.log(result.data.data);
+            this.setState({products: result.data.data, isLoading: false},()=>{
+                const ele = document.getElementById('kokka-loading')
+                if(ele){
+                    // fade out
+                    ele.classList.add('remove')
+                    setTimeout(() => {
+                    // remove from DOM
+                    ele.outerHTML = ''
+                    }, 3000)
+                }
+            });
+
+        })
+    }
 	render() {
-		const metas = [ ...pwaMetas ];
-		const links = [ ...linkPwaMetas ];
 		return (
-			<div style={{ height: '100%', width: '100vw' }}>
-				<Helmet meta={metas} link={links} />
+			!this.state.isLoading && <div style={{ height: '100%', width: '100vw' }}>
 				<MainCarousel />
 				<MidBanners />
 				<MidImage />
-				<ProductsGrid />
+				<ProductsGrid products={this.state.products}/>
 				<Footer />
 			</div>
 		);

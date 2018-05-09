@@ -27,7 +27,7 @@ class ProductsController extends Controller {
 
   public function index() {
 
-    $products = Products::orderBy('created_at', 'DESC')->paginate(10);
+    $products = Products::paginate(10);
     $categories = Categories::all();
     
     return view('products.products')->with(compact('products', 'categories'));
@@ -131,7 +131,7 @@ class ProductsController extends Controller {
             $products = Products::paginate(10);
             $categories = Categories::all();
             
-            return redirect('products')->with(compact('products', 'categories'));
+            return view('products.products')->with(compact('products', 'categories'));
         }
     }
     public function viewProduct($id){
@@ -148,7 +148,7 @@ class ProductsController extends Controller {
         $product = Products::where('product_code', $id)->first();
         $categories = Categories::all();
         
-        return view('edit-product')->with(compact('product', 'categories'));
+        return view('products.edit-product')->with(compact('product', 'categories'));
     }
     public function copyProductView($id){
         
@@ -164,9 +164,9 @@ class ProductsController extends Controller {
         $product->delete();
         $categories = Categories::all();
         $products = Products::paginate(10);
-        
+
         Session::flash('message', 'Successfully deleted product!');
-        return back()->with(compact('products', 'categories'));
+        return view('products.products')->with(compact('products', 'categories'));
     }
 
     public function editProduct(Request $request, $id)
@@ -265,7 +265,7 @@ class ProductsController extends Controller {
             // redirect
             Session::flash('message', 'Successfully created product!');
             $products = Products::paginate(10);
-            return redirect('products')->with(compact('products', 'categories'));
+            return view('products.products')->with(compact('products', 'categories'));
         }
     }
 

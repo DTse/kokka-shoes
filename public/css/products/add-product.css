@@ -302,13 +302,26 @@ tbody tr:hover {
 	cursor: pointer;
 }
 
-#main-image > label > img, #colors > fieldset > label > img{
+#main-image > label > img, #colors > fieldset > div> div > label > img{
     height: 100px;
     width: 100px;
     margin: 6px 0px 6px 7px;
     object-fit: cover;
 	border-radius: 50%;
 	border: 1.3px solid #36304a;
+}
+.images-upload > div > div.delete-color{
+    position: absolute;
+    right: 22px;
+    top: 20px;
+    z-index: 1;
+    border-radius: 37%;
+    padding: 6px;
+    background-color: tomato;
+    display: inline-block;
+    margin-left: 8px;
+    color: whitesmoke;
+
 }
 
 #main-image, #colors{ 
