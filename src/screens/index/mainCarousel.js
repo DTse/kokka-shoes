@@ -41,7 +41,6 @@ export default class MainCarousel extends Component {
 				<div className={this.state.isTop ? 'main-wrapper' : 'main-wrapper site-scroll'} style={{}}>
 					<Header />
 					<p style={{
-                            zIndex: -1,
 							opacity: this.state.calc,
 							top: this.state.calc === 0 ? '0%' : '50%',
 							height: this.state.calc === 0 ? '0%' : '100%'

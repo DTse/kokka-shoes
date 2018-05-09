@@ -4,6 +4,8 @@ import sampleShoe from '../../images/1132.jpg';
 
 import '../../App.css';
 
+import axios from 'axios';
+
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 
@@ -13,7 +15,33 @@ class Catalog extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+            products: [], 
+            last_page: null,
+			isLoading: false
 		}; 
+    }
+
+    componentDidMount(){
+		const slug = (this.props.match.url).match(/^\/+.*\/(.*)$/);
+        axios.get(slug === null || slug[1] === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category'+slug[1]).then((result)=>{
+            this.setState({
+                products: result.data.data,
+                last_page: result.data.last_page, 
+				isLoading: false
+			},()=>{
+                const ele = document.getElementById('kokka-loading')
+                if(ele){
+                    // fade out
+                    setTimeout(() => {
+                        ele.classList.add('remove')
+                    
+                    // remove from DOM
+                    ele.outerHTML = ''
+                    }, 3000)
+				}
+			});
+
+        })
     }
 
 	render() {
@@ -28,7 +56,7 @@ class Catalog extends Component {
             'platforms': 'Πλατφόρμες',
         };
         const url = (this.props.match.url).match(/^\/+.*\/(.*)$/);
-        console.log(url)
+        var {images, products, last_page} = this.state;
 		return (
 			<div className="main-wrapper site-scroll" style={{ backgroundColor: 'transparent',opacity: '0.85', position: 'initial' }}>
 				<div className="header" style={{ zIndex: 99}}><Header /></div>
@@ -60,189 +88,26 @@ class Catalog extends Component {
 				<div className="category-main">
                     <div className="category-title" style={{marginLeft: 0}}><span>{ url == '' || url == null ? categories['all']: categories[`${url[1]}`]}</span></div>
                         <div className="products-grid">
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
+                            {products.map((product, index) =>{
+                                var images = JSON.parse(product.images)
+                                return (
+                                <div key={"container-"+index} className="container">
+                                    <Link key={'img-link-'+index} to={"/product/"+product.slug} className="product-front-img"><img  key={'img-'+index} src={'http://cms.kokkashoes.tk/images/shoes/'+product.product_code+'/'+images[0][0]} /></Link>
+                                    <div key={'product-name-'+index} className="product-name">
+                                    <h1 key={'product-h1-'+index}>{product.name_gr}</h1>
+                                    <p key={'product-code-p-'+index}><span  key={'product-code-span-'+index}>Κωδικός:</span> {product.product_code}</p>
+                                    <h3 key={'product-price-'+index}>20.99 ‎€</h3>
+                                    </div>
                                 </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
-                            <div className="container">
-                            <img src={sampleShoe} />
-                                <div className="middle">
-                                <Link to="/product" className="product-front-img"><div className="text">Check out!</div></Link>
-                                </div>
-                                <div className="product-name">
-                                <h1>Test</h1>
-                                <p><span>Κωδικός:</span> 19492</p>
-                                <h3>20.99 ‎€</h3>
-                                </div>
-                            </div>
+                            )})
+                            }
                         </div>
-                        <div className="category-pagination">
+                        {last_page >1 && <div className="category-pagination">
                             <ul>
                                 <li><i className="fas fa-arrow-left"/> Προηγόυμενο</li>
                                 <li>Επόμενο <i className="fas fa-arrow-right"/></li>
                             </ul>
-                        </div>
+                        </div>}
                     </div>
 				<div style={{marginTop: 30}}><Footer /></div>
 			</div>
