@@ -87,12 +87,12 @@ class ProductsController extends Controller {
             $colors_en = $request->colors_en;
             //echo '<pre>'; print_r($colors_en); echo '</pre>'; exit;
             $images=$request->images;
-            $i =0;
-            $j=0;
-            foreach($images as $color){
+            $i = 0;
+            $j = 0; 
+            foreach($images as $color){ 
                 foreach($color as $image){
                     $j++;
-                    $name = $colors_en[$i].'-'.str_slug($request->name_en, '-').'-'.$j.'.'.$image->getClientOriginalExtension();
+                    $name = $colors_en[$i].'-'.str_slug($request->name_en, '-').'-'.$request->product_code.'-'.$j.'.'.$image->getClientOriginalExtension();
                     $name = str_slug($name, '-');
                     $file = $image->storeAs('/images/shoes/'.$request->product_code, $name);
                     $imageArr[$i][] = $name;
@@ -148,7 +148,7 @@ class ProductsController extends Controller {
         $product = Products::where('product_code', $id)->first();
         $categories = Categories::all();
         
-        return view('edit-product')->with(compact('product', 'categories'));
+        return view('products.edit-product')->with(compact('product', 'categories'));
     }
     public function copyProductView($id){
         

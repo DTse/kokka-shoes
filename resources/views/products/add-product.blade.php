@@ -100,9 +100,9 @@
             } 
         }
 
-        imageDelete =(image, color)=>{
+        imageDelete =(color, image)=>{
             var imageDiv = document.getElementById('upload-'+color+'-'+image);
-            var deleteImage = imageDiv.getElementsByTagName('input')[0];
+            var deleteImage = document.getElementById(`image_color_${color}_${image}`);
             deleteImage.value ="";
             imageDiv.parentElement.removeChild(imageDiv);
         }

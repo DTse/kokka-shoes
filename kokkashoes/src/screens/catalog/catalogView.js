@@ -17,6 +17,7 @@ class Catalog extends Component {
 		this.state = {
             products: [], 
             last_page: null,
+            page: 1,
 			isLoading: false
 		}; 
     }
@@ -30,7 +31,7 @@ class Catalog extends Component {
 				isLoading: false
 			},()=>{
                 const ele = document.getElementById('kokka-loading')
-                if(ele){
+                if(ele != undefined){
                     // fade out
                     setTimeout(() => {
                         ele.classList.add('remove')
@@ -42,6 +43,17 @@ class Catalog extends Component {
 			});
 
         })
+    }
+
+    componentDidUpdate(){
+        //const slug = (this.props.match.url).match(/^\/+.*\/(.*)$/);
+        axios.get('http://cms.kokkashoes.tk/api/products?page='+this.state.page).then((result)=>{
+            this.setState({products: result.data.data})
+        });
+    }
+
+    nextPage =()=>{
+        this.setState({page: this.state.page+1}); 
     }
 
 	render() {
@@ -58,7 +70,7 @@ class Catalog extends Component {
         const url = (this.props.match.url).match(/^\/+.*\/(.*)$/);
         var {images, products, last_page} = this.state;
 		return (
-			<div className="main-wrapper site-scroll" style={{ backgroundColor: 'transparent',opacity: '0.85', position: 'initial' }}>
+			<div className="main-wrapper site-scroll" style={{ backgroundColor: 'transparent', position: 'initial' }}>
 				<div className="header" style={{ zIndex: 99}}><Header /></div>
 				<div className="catalog-menu">
                     <ul style={{fontFamily: `'GFS Didot', serif`}}>
@@ -96,7 +108,7 @@ class Catalog extends Component {
                                     <div key={'product-name-'+index} className="product-name">
                                     <h1 key={'product-h1-'+index}>{product.name_gr}</h1>
                                     <p key={'product-code-p-'+index}><span  key={'product-code-span-'+index}>Κωδικός:</span> {product.product_code}</p>
-                                    <h3 key={'product-price-'+index}>20.99 ‎€</h3>
+                                    <h3 key={'product-price-'+index}>{product.price} ‎€</h3>
                                     </div>
                                 </div>
                             )})
@@ -104,8 +116,7 @@ class Catalog extends Component {
                         </div>
                         {last_page >1 && <div className="category-pagination">
                             <ul>
-                                <li><i className="fas fa-arrow-left"/> Προηγόυμενο</li>
-                                <li>Επόμενο <i className="fas fa-arrow-right"/></li>
+                                <li onClick={this.nextPage}><i className="fas fa-arrow-left"/> Προηγόυμενο</li><li>Επόμενο <i className="fas fa-arrow-right"/></li>
                             </ul>
                         </div>}
                     </div>

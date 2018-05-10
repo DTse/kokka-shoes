@@ -111,8 +111,8 @@ class Product extends Component {
 						<div className="product-code">Κωδικός: {product.product_code}</div>
 						<div className="product-heights">
 							{product.height !== null && <span>Ύψος Σόλας: {product.height}εκ.</span>}
-							{product.fiapa_height !== null && <span>Ύψος Τακουνιού: {product.fiapa_height}εκ.</span>}<br/>
-							{product.takouni_height !== null && <span>Ύψος Φιάπας: {product.takouni_height}εκ.</span>}
+							{product.fiapa_height !== null && <span>Ύψος Τακουνιού: {product.takouni_height}εκ.</span>}<br/>
+							{product.takouni_height !== null && <span>Ύψος Φιάπας: {product.fiapa_height}εκ.</span>}
 						</div>
 						<div className="product-colors">Χρώμα:</div>
                             <div className="product-colors"><span><select>
