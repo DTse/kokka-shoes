@@ -73,7 +73,7 @@ class Product extends Component {
 					{"name": product.name_gr, "content": product.description_gr},
 					{property: "og:type", content: "product"},
 					{property: "og:title", content: product.name_gr},
-					{property: "og:image", content: `http://cms.kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}`},
+					{property: "og:image", content: `http://kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}`},
 					{property: "og:url", content: `http://kokkashoes.tk/product/${product.slug}`}
 					]}
 					/>
@@ -87,7 +87,7 @@ class Product extends Component {
 																				alt={"Εικονα για το προιον "+product.name_gr}
 																				title={product.name_gr}
 																				onClick={()=>{this.changeImage(image)}} 
-																				src={`http://cms.kokkashoes.tk/images/shoes/${product.product_code}/${image}`} 
+																				src={`http://kokkashoes.tk/images/shoes/${product.product_code}/${image}`} 
 																			/>})}
 								{/* <img onClick={()=>{this.changeImage(sampleShoe)}} src={sampleShoe} ref={(el)=>{this.firstElement = el ;}}/>
 								<img onClick={()=>{this.changeImage(sampleShoe1)}} src={sampleShoe1} />
@@ -103,7 +103,7 @@ class Product extends Component {
 							<img 
 								alt={"Εικονα για το προιον "+product.name_gr}
 								title={product.name_gr}
-								src={`http://cms.kokkashoes.tk/images/shoes/${product.product_code}/${this.state.imageSrc}`} />
+								src={`http://kokkashoes.tk/images/shoes/${product.product_code}/${this.state.imageSrc}`} />
 						</div> 
 					</div>
 					<div className="product-info">
@@ -140,7 +140,7 @@ class Product extends Component {
 							</FacebookShareButton>
 							<PinterestShareButton
 								url={`http://kokkashoes.tk/product/${product.slug}`}
-								media={`http://cms.kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}`}
+								media={`http://kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}`}
 								windowWidth={1000}
 								windowHeight={730}>
 								<i className="fab fa-pinterest-p" />

@@ -13,8 +13,7 @@ import Catalog from './screens/catalog/catalogView';
 
 import ScrollToTop from './components/scrollTop';
 
-class App extends Component {
-    
+class App extends Component {    
 	render() {
         const metas = [ ...pwaMetas ];
 		const links = [ ...linkPwaMetas ];

@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 
 class KokkaLoader extends Component {
-  constructor(props){
-    super(props)
-  }
-
-
 	render() {
 		return (
-            <div className="kokka-loading" id="kokka-loading">
+            <div className={this.props.isLoading ? "kokka-loading-comp" : "kokka-loading-comp remove"} id="kokka-loading-comp">
                 <h1>KOKKA <span>SHOES</span></h1>
             </div>
         )
