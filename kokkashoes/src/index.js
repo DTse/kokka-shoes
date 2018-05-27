@@ -7,9 +7,12 @@ import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
 
+import LanguageProvider from './components/languageContext';
 
 ReactDOM.render(
+    <LanguageProvider>
     <BrowserRouter>
         <Route component={App}/>
-    </BrowserRouter>, document.getElementById('root'));
+    </BrowserRouter>
+    </LanguageProvider>, document.getElementById('root'));
 registerServiceWorker();

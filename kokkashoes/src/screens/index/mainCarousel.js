@@ -67,7 +67,7 @@ export default class MainCarousel extends Component {
 						Handcrafted in Greece
 					</p>
 				<div className='arrow bounce' style={{opacity: this.state.isTop ? 0.7 : 0}} ><i className="fas fa-angle-double-down"></i></div>
-				{this.state.windowWidth <= 1100 && <div className={`side-menu ${this.state.isTop ? '' : 'scroll'}`} style={!this.state.isOpen ? {WebkitTransform: 'translateY(-410px)', MsTransform: 'translateY(-410px)', transform: 'translateY(-410px)'}: null}>
+				{this.state.windowWidth <= 1100 && <div className={`side-menu ${this.state.isTop ? '' : 'scroll'}`} style={!this.state.isOpen ? {WebkitTransform: 'translateY(-460px)', MsTransform: 'translateY(-460px)', transform: 'translateY(-460px)'}: null}>
                     <MenuLinks />
                 </div>}
 			</div>
