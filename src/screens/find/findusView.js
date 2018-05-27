@@ -8,32 +8,61 @@ import {
   Marker
 } from "react-google-maps";
 
+import {LanguageContext} from '../../components/languageContext';
+
 import '../../App.css';
+import { MenuLinks } from '../../components/menuLinks';
 
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 
 class FindUs extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            isTop: true,
+			windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+			isOpen: false
+		};
+	}
+		
+	componentDidMount() {
+		window.addEventListener('resize', this.handleResize.bind(this));
+	}
+				  
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.handleResize.bind(this));
+	} 
+		
+	handleResize() {
+		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0)});
+    } 
+    
+    menuOpen =()=>{
+		this.setState({isOpen: !this.state.isOpen});
 	}
 
 	render() {
 		return (
+			<LanguageContext.Consumer>
+			{(context) => (
 			<div className="main-wrapper site-scroll" style={{ backgroundColor: 'transparent', position: 'initial'}}>
-				<div className="header" style={{ zIndex: 99}}><Header /></div>
+				<div className="header" style={{ zIndex: 99}}><span style={{zIndex: 99, width: '100%', backgroundColor: 'black'}}><Header  menuOpen={this.menuOpen.bind(this)} isOpen={this.state.isOpen}/></span>
+                {this.state.windowWidth <= 1100 && <div className={`side-menu ${this.state.isTop ? '' : 'scroll'}`} style={!this.state.isOpen ? {WebkitTransform: 'translateY(-410px)', MsTransform: 'translateY(-410px)', transform: 'translateY(-410px)'}: null}>
+                    <MenuLinks />
+                </div>}
+                </div>
 				<div className="find-us-image">
-					<h1 className="find-us-title">Επικοινωνία</h1>
+					<h1 className="find-us-title">{context.en ? 'Contact us' : 'Επικοινωνία'}</h1>
 				</div>
 				<div className="find-us-body">
 					<div className="find-us-factory">
 						<div className="find-us-factory-description">
-							<h1>Eταιρεία </h1>
-							Χειμάρας 39, Πειραιάς <br />
-                            T.K.: 18543<br />
-							Ελλάδα<br />
-							Τηλ.: +30 210 4206263<br />
+							<h1>{context.en ? 'Company' : 'Eταιρεία'} </h1>
+							{context.en ? 'Cheimaras 39, Piraeus' : 'Χειμάρας 39, Πειραιάς'} <br />
+							{context.en ? 'Zip Code' : 'T.K.'}: 18543<br />
+							{context.en ? 'Greece' : 'Ελλάδα'}<br />
+							{context.en ? 'Tel.' : 'Τηλ.'}: +30 210 4206263<br />
 							Fax: +30 210 4203833<br />
 							E-Mail: kokkashoes@outlook.com<br />
 						</div>
@@ -42,18 +71,19 @@ class FindUs extends Component {
 					<div className="find-us-seperator" />
 					<div className="find-us-store">
 						<div className="find-us-store-description">
-							<h1>Κατάστημα</h1>
-							Αδριανού 114, Αθήνα <br />
-                            T.K.: 10558<br />
-							Ελλάδα<br />
-							Τηλ.: +30 210 3224460
+							<h1>{context.en ? 'Shop' : 'Κατάστημα'}</h1>
+							{context.en ? 'Andrianou 114, Athens' : 'Αδριανού 114, Αθήνα'} <br />
+              {context.en ? 'Zip Code' : 'T.K.'}: 10558<br />
+							{context.en ? 'Greece' : 'Ελλάδα'}<br />
+							{context.en ? 'Tel.' : 'Τηλ.'}: +30 210 3224460
 						</div>
 						<MyMapComponent  lat={37.9733551} lng={23.7295532}/>
 					</div>
 				</div>
 				<div className="find-us-image-end" />
 				<Footer />
-			</div>
+			</div>)}
+			</LanguageContext.Consumer>
 		);
 	}
 }

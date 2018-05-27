@@ -3,6 +3,8 @@ import '../../App.css';
 
 import axios from 'axios';
 
+import {LanguageContext} from '../../components/languageContext';
+
 //Main Screen Components
 import ProductsGrid from '../index/productsGrid';
 import MainCarousel from '../index/mainCarousel';
@@ -23,7 +25,6 @@ class Home extends Component {
     
     componentDidMount(){
         axios.get('http://cms.kokkashoes.tk/api/products').then((result)=>{
-            console.log(result.data.data);
             this.setState({products: result.data.data, isLoading: false},()=>{
                 const ele = document.getElementById('kokka-loading')
                 if(ele){
@@ -40,13 +41,16 @@ class Home extends Component {
     }
 	render() {
 		return (
+            <LanguageContext.Consumer>
+			{(context) => (
 			!this.state.isLoading && <div style={{ height: '100%', width: '100vw' }}>
-				<MainCarousel />
+                <MainCarousel />
 				<MidBanners />
 				<MidImage />
-				<ProductsGrid products={this.state.products}/>
+				<ProductsGrid products={this.state.products} en={context.en}/>
 				<Footer />
-			</div>
+			</div>)}
+            </LanguageContext.Consumer>
 		);
 	}
 }

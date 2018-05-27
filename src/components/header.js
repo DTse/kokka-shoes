@@ -40,12 +40,12 @@ export default class Header extends Component {
 
 	render() {
 		return (
-            <header className="App-header" style={{height: this.state.isTop ? '110px' : '70px', transition: 'all 0.8s'}}>
+            <header className="App-header" style={{height: this.state.isTop ? '110px' : '70px', transition: 'all 0.8s' }}>
 				<div className="logo" style={{fontFamily: `'Ropa Sans', sans-serif`, letterSpacing: '.05em', fontSize: this.state.isTop ? '2.5em' : '1.5em', transition: 'all 0.8s'}}><Link to="/">KOKKA <span style={{fontSize: '0.6em'}}>SHOES</span></Link></div>
 				{this.state.windowWidth >= 1100 ? <div className="full-menu">
 					<MenuLinks />
 				</div> : 
-			<div className="menuContainer" onClick={this.props.menuOpen}>
+			<div className="menuContainer noSelect" onClick={this.props.menuOpen}>
                 <div className={this.props.isOpen ? "bar1 change" : "bar1"}/>
                 <div className={this.props.isOpen ? "bar2 change" : "bar2"}/>
                 <div className={this.props.isOpen ? "bar3 change" : "bar3"}/>

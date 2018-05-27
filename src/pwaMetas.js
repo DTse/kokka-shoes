@@ -25,11 +25,11 @@ export const pwaMetas = [
     },
     {
       name: 'apple-mobile-web-app-title',
-      content: 'KOKKA shoes',
+      content: 'KOKKA SHOES',
     },
     {
       name: 'application-name',
-      content: 'KOKKA shoes',
+      content: 'KOKKA SHOES',
     },
     {
       name: 'apple-mobile-web-app-status-bar-style',

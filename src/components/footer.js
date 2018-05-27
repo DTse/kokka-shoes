@@ -2,21 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
+import {LanguageContext} from './languageContext';
+
 export default class Footer extends Component {
 	render() {
 		return (
+			<LanguageContext.Consumer>
+			{(context) => (
 			<div className="footer-wrapper">
 				<div className="footer">
 					<div className="column-1">
-						<p>Σχετικά με μας</p>
+						<p>{context.en ? 'About us' : 'Σχετικά με μας'}</p>
 						<p>
-						Κύριο μέλημά μας είναι η σταθερή ποιότητα των υλικών για τη δημιουργία άνετων και ανθεκτικών παπουτσιών που ανταποκρίνονται στις ανάγκες των καταναλωτών.
+							{context.en ?
+						'Our main concern is the constant quality of materials for the creation of comfortable and durable shoes that meet the needs of our consumers':
+						'Κύριο μέλημά μας είναι η σταθερή ποιότητα των υλικών για τη δημιουργία άνετων και ανθεκτικών παπουτσιών που ανταποκρίνονται στις ανάγκες των καταναλωτών.'}
 						</p>
-						<p>Phone: +30 210 210 2105</p>
+						<p>{context.en ? 'Phone' : 'Τηλέφωνο'}: +30 210 210 2105</p>
 						<p>EMail: kokkashoes@outlook.com</p>
 					</div>
 					<div className="column-2">
-						<p>Βρείτε μας στα social</p>
+						<p>{context.en ? 'Our socials' : 'Βρείτε μας στα social'}</p>
 						<a href="http://instagram.com/kokkashoes">
 							<i className="fab fa-instagram" />
 							<p>Instagram</p>
@@ -31,30 +37,43 @@ export default class Footer extends Component {
 						</a>
 					</div>
 					<div className="column-3">
-						<p>Κατηγορίες</p>
+						<p>{context.en ? 'Categories' : 'Κατηγορίες'}</p>
                         <ul className="categories-footer-list" style={{fontFamily: `'GFS Didot', serif`}}>
                             <li>
-                                <Link to="/catalog/boots-n-booties">Μπότες & Μποτάκια</Link>
+							{context.en ?
+                                <Link to="/en/catalog/boots-n-booties">Boots & Booties</Link>:
+                                <Link to="/el/catalog/boots-n-booties">Μπότες & Μποτάκια</Link>
+							}
                             </li>
                             <li>
-                                <Link to="/catalog/sandals">Σανδάλια</Link>
+								{context.en ?
+                                <Link to="/en/catalog/sandals">Sandals</Link>:
+                                <Link to="/el/catalog/sandals">Σανδάλια</Link>
+								}
                             </li>
                             <li>
-                                <Link to="/catalog/flats">Flats</Link>
+								{context.en ?
+                                <Link to="/en/catalog/flats">Flats</Link>:
+                                <Link to="/el/catalog/flats">Flats</Link>
+								}
                             </li>
                             <li>
-                                <Link to="/catalog/heeled-sandals">Πέδιλα</Link>
+								{context.en ?
+                                <Link to="/en/catalog/platforms-n-heeled-sandals">Platforms & Heeled Sandals</Link>:
+                                <Link to="/el/catalog/platforms-n-heeled-sandals">Πλατφόρμες & Πέδιλα</Link>
+								}
                             </li>
                             <li>
-                                <Link to="/catalog/mens-sandals">Ανδρικά Σανδάλια</Link>
-                            </li>
-                            <li>
-                                <Link to="/catalog/platforms">Πλατφόρμες</Link>
+								{context.en ?
+                                <Link to="/en/catalog/mens-sandals">Men's Sandals</Link>:
+                                <Link to="/el/catalog/mens-sandals">Ανδρικά Σανδάλια</Link>
+								}
                             </li>
 					    </ul>
 					</div>
 				</div>
-			</div>
+			</div>)}
+			</LanguageContext.Consumer>
 		);
 	}
 }
