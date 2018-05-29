@@ -27,7 +27,7 @@ class Catalog extends Component {
                             <Link to="/catalog/boots-n-booties" style={{borderBottom: this.props.match.url === '/catalog/boots-n-booties'?'#212121c7 2px solid' : 'unset'}}>Μπότες & Μποτάκια</Link>
 						</li>
 						<li>
-                            <Link to="/catalog/sandals"style={{borderBottom: this.props.match.url === '/catalog/sandals'?'#212121c7 2px solid' : 'unset'}}>Σανδάλια</Link>
+                            <Link to="/catalog/flat-sandals"style={{borderBottom: this.props.match.url === '/catalog/flat-sandals'?'#212121c7 2px solid' : 'unset'}}>Σανδάλια</Link>
 						</li>
 						<li>
                             <Link to="/catalog/flats"style={{borderBottom: this.props.match.url === '/catalog/flats'?'#212121c7 2px solid' : 'unset'}}>Flats</Link>
