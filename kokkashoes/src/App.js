@@ -45,13 +45,13 @@ class App extends Component {
                         }
                             link={links} />
 					<Switch>
-						<Route exact path='/:lang' component={Home} />
-						<Route exact path='/:lang/catalog' component={Catalog} />
-						<Route path="/:lang/catalog/:categorySlug" component={Catalog} />
-						<Route exact path="/:lang/product/:productSlug" render={(props)=><Product {...props} en={context.en}/>} />
-						<Route path="/:lang/about-us" component={About} />
-						<Route path="/:lang/company" component={FindUs} />
-						<Route path="*" render={() => <Redirect to={context.en ? '/en' : '/el'} />} />
+						<Route exact path='/:lang/' component={Home} />
+						<Route exact path='/:lang/catalog/' component={Catalog} />
+						<Route path="/:lang/catalog/:categorySlug/" component={Catalog} />
+						<Route exact path="/:lang/product/:productSlug/" render={(props)=><Product {...props} en={context.en}/>} />
+						<Route path="/:lang/about-us/" component={About} />
+						<Route path="/:lang/company/" component={FindUs} />
+						<Route path="*" render={() => <Redirect to={context.en ? '/en/' : '/el/'} />} />
 					</Switch>
 				</div>)}
 				</LanguageContext.Consumer>

@@ -13,32 +13,32 @@ export const MenuLinks = () => {
 				<ul style={{ fontFamily: `'GFS Didot', serif` }}>
 					<li>
 						{context.en ?
-                            <Link to="/en">Home</Link>:
-                            <Link to="/el">Αρχική</Link>
+                            <Link to="/en/">Home</Link>:
+                            <Link to="/el/">Αρχική</Link>
                         }
 					</li>
 					<li>
                         {context.en ?
-                            <Link to="/en/catalog">Catalog</Link>:
-                            <Link to="/el/catalog">Κατάλογος</Link>
+                            <Link to="/en/catalog/">Catalog</Link>:
+                            <Link to="/el/catalog/">Κατάλογος</Link>
                         }
 					</li>
 					<li>
 						{context.en ?
-                            <Link to="/en/about-us">About us</Link>:
-                            <Link to="/el/about-us">Ποίοι είμαστε</Link>
+                            <Link to="/en/about-us/">About us</Link>:
+                            <Link to="/el/about-us/">Ποίοι είμαστε</Link>
                         }
 					</li>
                     <li>
                         {context.en ?
-                            <Link to="/en/company">Contact us</Link>:
-                            <Link to="/el/company">Επικοινωνία</Link>
+                            <Link to="/en/company/">Contact us</Link>:
+                            <Link to="/el/company/">Επικοινωνία</Link>
                         }
 					</li>
 					<li>
                     {context.en ?
-                            <Link onClick={context.changeLanguage} to={`/el${url}`}>Ελληνικά</Link>:
-                            <Link onClick={context.changeLanguage} to={`/en${url}`}>English</Link>}
+                            <Link onClick={context.changeLanguage} to={`/el${url}/`}>GR</Link>:
+                            <Link onClick={context.changeLanguage} to={`/en${url}/`}>EN</Link>}
 					</li>
 				</ul>)}
 		</LanguageContext.Consumer>

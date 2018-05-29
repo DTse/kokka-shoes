@@ -9,7 +9,7 @@ import {LanguageContext} from '../../components/languageContext';
 import ProductsGrid from '../index/productsGrid';
 import MainCarousel from '../index/mainCarousel';
 import MidBanners from '../index/midBanners';
-import MidImage from '../index/midImage';
+//import MidImage from '../index/midImage';
 
 import Footer from '../../components/footer';
 
@@ -32,7 +32,7 @@ class Home extends Component {
                     ele.classList.add('remove')
                     setTimeout(() => {
                     // remove from DOM
-                    ele.outerHTML = ''
+                    ele.style.display = 'none'
                     }, 3000)
                 }
             });
@@ -46,7 +46,6 @@ class Home extends Component {
 			!this.state.isLoading && <div style={{ height: '100%', width: '100vw' }}>
                 <MainCarousel />
 				<MidBanners />
-				<MidImage />
 				<ProductsGrid products={this.state.products} en={context.en}/>
 				<Footer />
 			</div>)}

@@ -29,3 +29,9 @@ Route::get('products/category/{slug}', function ($slug) {
     
     return $category->products()->where('hidden', '1')->orderBy('order', 'DESC')->paginate(16);
 });
+Route::get('product/category/{id}', function ($id) {
+
+    $product = App\Products::where('id', $id)->first();
+    
+    return $product->category()->get();
+});

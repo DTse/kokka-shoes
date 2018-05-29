@@ -56,8 +56,8 @@ class Catalog extends Component {
         await this.setState({isLoading: true});
         this.showTargetElement();
         window.scrollTo(0, 0);
-        const slug = (nextProps.match.url).match(/^\/+.*\/+.*\/(.*)$/);
-        setTimeout(async()=>{await axios.get(slug === null || slug[1] === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category/'+slug[1]).then((result)=>{
+        const slug = this.props.match.params.categorySlug;
+        setTimeout(async()=>{await axios.get(slug === null || slug === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category/'+slug).then((result)=>{
             this.setState({products: result.data.data, last_page: result.data.last_page, isLoading: false, page: 1})
             this.hideTargetElement();
         });}, 2500)
@@ -66,9 +66,8 @@ class Catalog extends Component {
     componentDidMount(){
         window.scrollTo(0, 0);         
 		window.addEventListener('resize', this.handleResize.bind(this));
-        this.targetElement = document.querySelector('#root');
-		const slug = (this.props.match.url).match(/^\/+.*\/+.*\/(.*)$/);
-        axios.get(slug === null || slug[1] === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category/'+slug[1]).then((result)=>{
+		const slug = this.props.match.params.categorySlug;
+        axios.get(slug === null || slug === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category/'+slug).then((result)=>{
             this.setState({
                 products: result.data.data,
                 last_page: result.data.last_page, 
@@ -78,11 +77,12 @@ class Catalog extends Component {
                 if(ele !== undefined){
                     // fade out
                     setTimeout(() => {
-                        ele.classList.add('remove')
+                      ele.classList.add('remove') 
                     
                     // remove from DOM
-                    ele.outerHTML = ''
-                    }, 3000)
+                    ele.style.display = 'none'
+                    }, 8000)
+                     
 				}
 			});
 
@@ -94,19 +94,22 @@ class Catalog extends Component {
         await this.setState({isLoading: true});
         this.showTargetElement();
         window.scrollTo(0, 0);
-        setTimeout(async()=>{await axios.get('http://cms.kokkashoes.tk/api/products?page='+(this.state.page+1)).then((result)=>{
-             this.setState({products: result.data.data, page: this.state.page+1, isLoading: false})
-             this.hideTargetElement();
-            });}, 2500)
+        const slug = this.props.match.params.categorySlug;
+        setTimeout(async()=>{await axios.get(slug === null || slug === undefined ? `http://cms.kokkashoes.tk/api/products?page=${this.state.page+1}` : `http://cms.kokkashoes.tk/api/products/category/${slug}?page=${this.state.page+1}`).then((result)=>{
+            this.setState({products: result.data.data, page: this.state.page+1, isLoading: false,})
+            this.hideTargetElement();
+        });}, 2500)
     }
+
     prevPage = async() =>{
         await this.setState({isLoading: true});
         this.showTargetElement();
         window.scrollTo(0, 0);
-        setTimeout(async()=>{await axios.get('http://cms.kokkashoes.tk/api/products?page='+(this.state.page-1)).then(async(result)=>{
-            await this.setState({products: result.data.data, page: this.state.page-1, isLoading: false});
+        const slug = this.props.match.params.categorySlug;
+        setTimeout(async()=>{await axios.get(slug === null || slug === undefined ? `http://cms.kokkashoes.tk/api/products?page=${this.state.page-1}` : `http://cms.kokkashoes.tk/api/products/category/${slug}?page=${this.state.page-1}`).then((result)=>{
+            this.setState({products: result.data.data, page: this.state.page-1, isLoading: false,})
             this.hideTargetElement();
-         });}, 2500)
+        });}, 2500)
     }
 
 	render() {
@@ -119,7 +122,7 @@ class Catalog extends Component {
             'platforms-n-heeled-sandals': {el: 'Πλατφόρμες & Πέδιλα', en: 'Platforms & Heeled Sandals'},
             'mens-sandals': {el: 'Ανδρικά Σανδάλια', en: 'Mens Sandals'},
         };
-        const url = (this.props.match.url).match(/^\/+.*\/+.*\/(.*)$/);
+        const url = this.props.match.params.categorySlug;
         var {products, last_page} = this.state;
 		return (
             <LanguageContext.Consumer>
@@ -133,36 +136,36 @@ class Catalog extends Component {
 				<div className="catalog-menu" style={ this.state.isLoading ? {transform: 'translateY(-110px)'} : {transform: 'translateY(0px)'} }>
                     <ul style={{fontFamily: `'GFS Didot', serif`}}>
 						<li> 
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog`} style={{borderBottom: this.props.match.url === '/catalog'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'All' : 'Όλα'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/`} style={{borderBottom: url === null || url === undefined ?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'All' : 'Όλα'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/boots-n-booties`} style={{borderBottom: this.props.match.url === '/catalog/boots-n-booties'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Boots & Booties' : 'Μπότες & Μποτάκια'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/boots-n-booties/`} style={{borderBottom: url === 'boots-n-booties'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Boots & Booties' : 'Μπότες & Μποτάκια'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flat-sandals`} style={{borderBottom: this.props.match.url === '/catalog/flat-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Sandals' : 'Σανδάλια'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flat-sandals/`} style={{borderBottom: url === 'flat-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Flat Sandals' : 'Σανδάλια'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flats`} style={{borderBottom: this.props.match.url === '/catalog/flats'?'#212121c7 2px solid' : 'unset'}}>Flats</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flats/`} style={{borderBottom: url === 'flats'?'#212121c7 2px solid' : 'unset'}}>Flats</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/platforms-n-heeled-sandals`} style={{borderBottom: this.props.match.url === '/catalog/platforms-n-heeled-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Platforms & Heeled Sandals' : 'Πλατφόρμες & Πέδιλα'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/platforms-n-heeled-sandals/`} style={{borderBottom: url === 'platforms-n-heeled-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Platforms & Heeled Sandals' : 'Πλατφόρμες & Πέδιλα'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/mens-sandals`} style={{borderBottom: this.props.match.url === '/catalog/mens-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? `Men's Sandals` : 'Ανδρικά Σανδάλια'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/mens-sandals/`} style={{borderBottom: url === 'mens-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? `Men's Sandals` : 'Ανδρικά Σανδάλια'}</Link>
 						</li>
 					</ul>
                 </div>
                 <KokkaLoader isLoading={this.state.isLoading}/>
 				<div className="category-main">
-                    <div className="category-title" style={{marginLeft: 0}}><span>{ url === '' || url === null ? context.en ? categories['all'].en : categories['all'].el : context.en ? categories[`${url[1]}`].en : categories[`${url[1]}`].el}</span></div>
+                    <div className="category-title" style={{marginLeft: 0}}><span>{url === null || url === undefined ? context.en ? categories['all'].en : categories['all'].el : context.en ? categories[`${url}`].en : categories[`${url}`].el}</span></div>
                         <div className="products-grid">
                             {products.map((product, index) =>{
                                 var images = JSON.parse(product.images);
                                 return (
                                 <div key={"container-"+index} className="container">
-                                    <Link key={'img-link-img-'+index} to={`/${context.en ? 'en' : 'el'}/product/${product.slug}`} className="product-front-img"><img  key={'img-'+index} src={'http://kokkashoes.tk/images/shoes/'+product.product_code+'/'+images[0][0]} alt={"Εικονα για το προιον "+product.name_gr} title={product.name_gr}/></Link>
+                                    <Link key={'img-link-img-'+index} to={`/${context.en ? 'en' : 'el'}/product/${product.slug}/`} className="product-front-img"><img  key={'img-'+index} src={'http://kokkashoes.tk/images/shoes/'+product.product_code+'/'+images[0][0]} alt={"Εικονα για το προιον "+product.name_gr} title={product.name_gr}/></Link>
                                     <div key={'product-name-'+index} className="product-name">
-                                    <Link key={'img-link-'+index} to={`/${context.en ? 'en' : 'el'}/product/${product.slug}`} className="product-link"><h1 key={'product-h1-'+index}>{context.en ? product.name_en : product.name_gr}</h1></Link>
+                                    <Link key={'img-link-'+index} to={`/${context.en ? 'en' : 'el'}/product/${product.slug}/`} className="product-link"><h1 key={'product-h1-'+index}>{context.en ? product.name_en : product.name_gr}</h1></Link>
                                         <p key={'product-code-p-'+index}><span  key={'product-code-span-'+index}>{context.en ? 'Product Code' : 'Κωδικός'}:</span> {product.product_code}</p>
                                         <h3 key={'product-price-'+index}>{product.price} ‎€</h3>
                                     </div>

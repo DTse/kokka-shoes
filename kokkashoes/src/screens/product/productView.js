@@ -149,13 +149,16 @@ class Product extends Component {
 					<div className="product-photo">
 						<div className="sideWrapper">
 							{images.length !== 0 && <div className="product-image-side" ref={(el)=>{this.divWidth = el;}}>
-								{images.map((image, index)=>{return <img ref={index}
+								{images.map((imageColor)=>{
+									return imageColor.map((image, index)=>{
+										return <img ref={index}
 																				key={'side-image-'+index} 
 																				alt={en ? "Image for product"+product.name_en : "Εικονα για το προιον "+product.name_gr}
 																				title={en ? product.name_en : product.name_gr}
 																				onClick={()=>{this.changeImage(image)}} 
 																				src={`http://kokkashoes.tk/images/shoes/${product.product_code}/${image}`} 
-																			/>})}
+																			/>})
+																			})}
 							</div>}
 							{images.length > 3 && <div className="scrollWrapper">
 								<span onClick={()=>{this.scrollThumbs(this.state.index-1)}} className="scrollSpan"><i className="fas fa-angle-up"></i></span>
