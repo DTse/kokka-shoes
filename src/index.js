@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
-import { hydrate, render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
@@ -9,14 +9,24 @@ import registerServiceWorker from './registerServiceWorker';
 
 import LanguageProvider from './components/languageContext';
 
-
- 
 const rootElement = document.getElementById('root');
 
-  render(<LanguageProvider>
-    <BrowserRouter>
-        <Route component={App}/>
-    </BrowserRouter>
-    </LanguageProvider>, rootElement);
+		ReactDOM.render(
+		<LanguageProvider>
+			<BrowserRouter>
+				<Route component={App} />
+			</BrowserRouter>
+		</LanguageProvider>,
+		rootElement);
+	
+
+//-----------------------------------------------//
+if (module.hot) {
+    module.hot.accept('./App', () => {
+      const NextApp = require('./App').default
+      ReactDOM.render(<NextApp />, rootElement)
+    })
+  }
+
 
 registerServiceWorker();

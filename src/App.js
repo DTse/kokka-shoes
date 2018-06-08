@@ -6,6 +6,7 @@ import './App.css';
 import { pwaMetas, linkPwaMetas } from './pwaMetas';
 
 import {LanguageContext} from './components/languageContext';
+// import KokkaLoader from './components/kokkaLoader';
 
 import Home from './screens/index/homeView';
 import Product from './screens/product/productView';
@@ -14,6 +15,18 @@ import FindUs from './screens/find/findusView';
 import Catalog from './screens/catalog/catalogView';
 
 import ScrollToTop from './components/scrollTop';
+
+// import loadable from 'loadable-components'; 
+
+// const Home = loadable(() => import( './screens/index/homeView'))
+
+// const Product = loadable(() => import( './screens/product/productView'))
+
+// const About = loadable(() => import( './screens/about/aboutView'))
+
+// const FindUs = loadable(() => import( './screens/find/findusView'))
+
+// const Catalog = loadable(() => import( './screens/catalog/catalogView'))
 
 class App extends Component { 
 	render() {
@@ -45,13 +58,13 @@ class App extends Component {
                         }
                             link={links} />
 					<Switch>
-						<Route exact path='/:lang/' component={Home} />
-						<Route exact path='/:lang/catalog/' component={Catalog} />
-						<Route path="/:lang/catalog/:categorySlug/" component={Catalog} />
-						<Route exact path="/:lang/product/:productSlug/" render={(props)=><Product {...props} en={context.en}/>} />
-						<Route path="/:lang/about-us/" component={About} />
-						<Route path="/:lang/company/" component={FindUs} />
-						<Route path="*" render={() => <Redirect to={context.en ? '/en/' : '/el/'} />} />
+						<Route exact path='/:lang' component={Home} />
+						<Route exact path='/:lang/catalog' component={Catalog} />
+						<Route path="/:lang/catalog/:categorySlug" component={Catalog} />
+						<Route exact path="/:lang/product/:productSlug" render={(props)=><Product {...props} en={context.en}/>} />
+						<Route exact path="/:lang/about-us" component={About} />
+						<Route exact path="/:lang/company" component={FindUs} />
+						<Route path="*" render={() => <Redirect to={context.en ? '/en' : '/el'} />} />
 					</Switch>
 				</div>)}
 				</LanguageContext.Consumer>

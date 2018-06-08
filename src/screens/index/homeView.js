@@ -39,6 +39,15 @@ class Home extends Component {
 
         })
     }
+
+    componentWillUnmount(){
+        const ele = document.getElementById('kokka-loading')
+        if(ele !== undefined){
+            ele.classList.toggle('remove') 
+            // add to DOM
+            ele.style.display = 'flex'
+        }
+    }
 	render() {
 		return (
             <LanguageContext.Consumer>

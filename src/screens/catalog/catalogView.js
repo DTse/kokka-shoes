@@ -8,6 +8,8 @@ import '../../App.css';
 
 import axios from 'axios';
 
+import root from 'window-or-global';
+
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import KokkaLoader from '../../components/kokkaLoader';
@@ -24,8 +26,9 @@ class Catalog extends Component {
             page: 1,
 			isLoading: false,
             isTop: true,
-			windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-			isOpen: false
+			windowWidth: Math.max(document.documentElement.clientWidth, root.innerWidth || 0),
+            isOpen: false,
+            productPagination:[]
         }; 
     }
     targetElement = null;
@@ -40,11 +43,17 @@ class Catalog extends Component {
     
     componentWillUnmount() {
       clearAllBodyScrollLocks();
-      window.removeEventListener('resize', this.handleResize.bind(this));
+      root.removeEventListener('resize', this.handleResize.bind(this));
+      const ele = document.getElementById('kokka-loading')
+      if(ele !== undefined){
+          ele.classList.toggle('remove') 
+          // add to DOM
+          ele.style.display = 'flex'
+      }
     }
 
 	handleResize() {
-		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0)});
+		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, root.innerWidth || 0)});
     } 
     
     
@@ -55,7 +64,7 @@ class Catalog extends Component {
     async componentWillReceiveProps(nextProps, nextState){
         await this.setState({isLoading: true});
         this.showTargetElement();
-        window.scrollTo(0, 0);
+        root.scrollTo(0, 0);
         const slug = this.props.match.params.categorySlug;
         setTimeout(async()=>{await axios.get(slug === null || slug === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category/'+slug).then((result)=>{
             this.setState({products: result.data.data, last_page: result.data.last_page, isLoading: false, page: 1})
@@ -64,8 +73,9 @@ class Catalog extends Component {
     }
 
     componentDidMount(){
-        window.scrollTo(0, 0);         
-		window.addEventListener('resize', this.handleResize.bind(this));
+        root.scrollTo(0, 0);         
+        root.addEventListener('resize', this.handleResize.bind(this));
+        this.targetElement = document.querySelector('#root');
 		const slug = this.props.match.params.categorySlug;
         axios.get(slug === null || slug === undefined ? 'http://cms.kokkashoes.tk/api/products' : 'http://cms.kokkashoes.tk/api/products/category/'+slug).then((result)=>{
             this.setState({
@@ -81,19 +91,21 @@ class Catalog extends Component {
                     
                     // remove from DOM
                     ele.style.display = 'none'
-                    }, 8000)
+                    }, 3000)
                      
 				}
 			});
-
-        })
+        });
+        axios.get('http://cms.kokkashoes.tk/api/product/pagination/all').then((result)=>{
+            this.setState({productPagination: result.data})
+        });
     }
 
 
     nextPage = async() =>{
         await this.setState({isLoading: true});
         this.showTargetElement();
-        window.scrollTo(0, 0);
+        root.scrollTo(0, 0);
         const slug = this.props.match.params.categorySlug;
         setTimeout(async()=>{await axios.get(slug === null || slug === undefined ? `http://cms.kokkashoes.tk/api/products?page=${this.state.page+1}` : `http://cms.kokkashoes.tk/api/products/category/${slug}?page=${this.state.page+1}`).then((result)=>{
             this.setState({products: result.data.data, page: this.state.page+1, isLoading: false,})
@@ -104,7 +116,7 @@ class Catalog extends Component {
     prevPage = async() =>{
         await this.setState({isLoading: true});
         this.showTargetElement();
-        window.scrollTo(0, 0);
+        root.scrollTo(0, 0);
         const slug = this.props.match.params.categorySlug;
         setTimeout(async()=>{await axios.get(slug === null || slug === undefined ? `http://cms.kokkashoes.tk/api/products?page=${this.state.page-1}` : `http://cms.kokkashoes.tk/api/products/category/${slug}?page=${this.state.page-1}`).then((result)=>{
             this.setState({products: result.data.data, page: this.state.page-1, isLoading: false,})
@@ -136,22 +148,22 @@ class Catalog extends Component {
 				<div className="catalog-menu" style={ this.state.isLoading ? {transform: 'translateY(-110px)'} : {transform: 'translateY(0px)'} }>
                     <ul style={{fontFamily: `'GFS Didot', serif`}}>
 						<li> 
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/`} style={{borderBottom: url === null || url === undefined ?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'All' : 'Όλα'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog`} style={{borderBottom: url === null || url === undefined ?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'All' : 'Όλα'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/boots-n-booties/`} style={{borderBottom: url === 'boots-n-booties'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Boots & Booties' : 'Μπότες & Μποτάκια'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/boots-n-booties`} style={{borderBottom: url === 'boots-n-booties'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Boots & Booties' : 'Μπότες & Μποτάκια'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flat-sandals/`} style={{borderBottom: url === 'flat-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Flat Sandals' : 'Σανδάλια'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flat-sandals`} style={{borderBottom: url === 'flat-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Flat Sandals' : 'Σανδάλια'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flats/`} style={{borderBottom: url === 'flats'?'#212121c7 2px solid' : 'unset'}}>Flats</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/flats`} style={{borderBottom: url === 'flats'?'#212121c7 2px solid' : 'unset'}}>Flats</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/platforms-n-heeled-sandals/`} style={{borderBottom: url === 'platforms-n-heeled-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Platforms & Heeled Sandals' : 'Πλατφόρμες & Πέδιλα'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/platforms-n-heeled-sandals`} style={{borderBottom: url === 'platforms-n-heeled-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? 'Platforms & Heeled Sandals' : 'Πλατφόρμες & Πέδιλα'}</Link>
 						</li>
 						<li>
-                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/mens-sandals/`} style={{borderBottom: url === 'mens-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? `Men's Sandals` : 'Ανδρικά Σανδάλια'}</Link>
+                            <Link to={`/${context.en ? 'en' : 'el'}/catalog/mens-sandals`} style={{borderBottom: url === 'mens-sandals'?'#212121c7 2px solid' : 'unset'}}>{context.en ? `Men's Sandals` : 'Ανδρικά Σανδάλια'}</Link>
 						</li>
 					</ul>
                 </div>
@@ -163,9 +175,9 @@ class Catalog extends Component {
                                 var images = JSON.parse(product.images);
                                 return (
                                 <div key={"container-"+index} className="container">
-                                    <Link key={'img-link-img-'+index} to={`/${context.en ? 'en' : 'el'}/product/${product.slug}/`} className="product-front-img"><img  key={'img-'+index} src={'http://kokkashoes.tk/images/shoes/'+product.product_code+'/'+images[0][0]} alt={"Εικονα για το προιον "+product.name_gr} title={product.name_gr}/></Link>
+                                    <Link key={'img-link-img-'+index} to={{pathname:`/${context.en ? 'en' : 'el'}/product/${product.slug}`, state:{productPagination: this.state.productPagination}}} className="product-front-img"><img  key={'img-'+index} src={'http://kokkashoes.tk/images/shoes/'+product.product_code+'/'+images[0][0]} alt={"Εικονα για το προιον "+product.name_gr} title={product.name_gr}/></Link>
                                     <div key={'product-name-'+index} className="product-name">
-                                    <Link key={'img-link-'+index} to={`/${context.en ? 'en' : 'el'}/product/${product.slug}/`} className="product-link"><h1 key={'product-h1-'+index}>{context.en ? product.name_en : product.name_gr}</h1></Link>
+                                    <Link key={'img-link-'+index} to={{pathname:`/${context.en ? 'en' : 'el'}/product/${product.slug}`, state:{productPagination: this.state.productPagination}}} className="product-link"><h1 key={'product-h1-'+index}>{context.en ? product.name_en : product.name_gr}</h1></Link>
                                         <p key={'product-code-p-'+index}><span  key={'product-code-span-'+index}>{context.en ? 'Product Code' : 'Κωδικός'}:</span> {product.product_code}</p>
                                         <h3 key={'product-price-'+index}>{product.price} ‎€</h3>
                                     </div>

@@ -43,32 +43,32 @@ export default class Footer extends Component {
                         <ul className="categories-footer-list" style={{fontFamily: `'GFS Didot', serif`}}>
                             <li>
 							{context.en ?
-                                <Link to="/en/catalog/boots-n-booties/">Boots & Booties</Link>:
-                                <Link to="/el/catalog/boots-n-booties/">Μπότες & Μποτάκια</Link>
+                                <Link to="/en/catalog/boots-n-booties">Boots & Booties</Link>:
+                                <Link to="/el/catalog/boots-n-booties">Μπότες & Μποτάκια</Link>
 							}
                             </li>
                             <li>
 								{context.en ?
-                                <Link to="/en/catalog/flat-sandals/">Flat Sandals</Link>:
-                                <Link to="/el/catalog/flat-sandals/">Σανδάλια</Link>
+                                <Link to="/en/catalog/flat-sandals">Flat Sandals</Link>:
+                                <Link to="/el/catalog/flat-sandals">Σανδάλια</Link>
 								}
                             </li>
                             <li>
 								{context.en ?
-                                <Link to="/en/catalog/flats/">Flats</Link>:
-                                <Link to="/el/catalog/flats/">Flats</Link>
+                                <Link to="/en/catalog/flats">Flats</Link>:
+                                <Link to="/el/catalog/flats">Flats</Link>
 								}
                             </li>
                             <li>
 								{context.en ?
-                                <Link to="/en/catalog/platforms-n-heeled-sandals/">Platforms & Heeled Sandals</Link>:
-                                <Link to="/el/catalog/platforms-n-heeled-sandals/">Πλατφόρμες & Πέδιλα</Link>
+                                <Link to="/en/catalog/platforms-n-heeled-sandals">Platforms & Heeled Sandals</Link>:
+                                <Link to="/el/catalog/platforms-n-heeled-sandals">Πλατφόρμες & Πέδιλα</Link>
 								}
                             </li>
                             <li>
 								{context.en ?
-                                <Link to="/en/catalog/mens-sandals/">Men's Sandals</Link>:
-                                <Link to="/el/catalog/mens-sandals/">Ανδρικά Σανδάλια</Link>
+                                <Link to="/en/catalog/mens-sandals">Men's Sandals</Link>:
+                                <Link to="/el/catalog/mens-sandals">Ανδρικά Σανδάλια</Link>
 								}
                             </li>
 					    </ul>

@@ -5,6 +5,8 @@ import { MenuLinks } from '../../components/menuLinks';
 
 import {LanguageContext} from '../../components/languageContext';
 
+import root from 'window-or-global';
+
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 
@@ -13,21 +15,38 @@ class About extends Component {
         super(props);
         this.state = {
             isTop: true,
-			windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+			windowWidth: Math.max(document.documentElement.clientWidth, root.innerWidth || 0),
 			isOpen: false
 		};
 	}
 		
 	componentDidMount() {
-		window.addEventListener('resize', this.handleResize.bind(this));
+        root.addEventListener('resize', this.handleResize.bind(this));
+        const ele = document.getElementById('kokka-loading')
+        if(ele !== undefined){
+            // fade out
+            setTimeout(() => {
+                ele.classList.add('remove') 
+                    
+                // remove from DOM
+                ele.style.display = 'none'
+            }, 3000)
+                     
+		}
 	}
 				  
 	componentWillUnmount() {
-		window.removeEventListener('resize', this.handleResize.bind(this));
+        root.removeEventListener('resize', this.handleResize.bind(this));
+        const ele = document.getElementById('kokka-loading')
+        if(ele !== undefined){
+            ele.classList.toggle('remove') 
+            // add to DOM
+            ele.style.display = 'flex'
+        }
 	} 
 		
 	handleResize() {
-		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0)});
+		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, root.innerWidth || 0)});
     } 
     
     menuOpen =()=>{
@@ -47,7 +66,7 @@ class About extends Component {
 				<div className="about-us-image">
 					<h1 className="about-us-title">{context.en ? 'About us' : 'Ποίοι είμαστε'}</h1>
 				</div>
-				<div className="about-us-story">
+				<div className="about-us-story"> 
 				{context.en ? 
 				`Our company, KOKKAshoes, has been involved in the footwear industry since 1977 and our experience is our main criterion when it comes to making elegant and comfortable shoes for our customers. 
 				Having high expectations for our work and progress, we created a workshop fully equipped with state-of-the-art machinery and manned with our carefully chosen experienced personnel whom we share our expertise with.

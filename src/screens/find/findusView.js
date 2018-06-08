@@ -13,6 +13,8 @@ import {LanguageContext} from '../../components/languageContext';
 import '../../App.css';
 import { MenuLinks } from '../../components/menuLinks';
 
+import root from 'window-or-global'
+
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 
@@ -21,21 +23,38 @@ class FindUs extends Component {
         super(props);
         this.state = {
             isTop: true,
-			windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+			windowWidth: Math.max(document.documentElement.clientWidth, root.innerWidth || 0),
 			isOpen: false
 		};
 	}
 		
 	componentDidMount() {
-		window.addEventListener('resize', this.handleResize.bind(this));
+        root.addEventListener('resize', this.handleResize.bind(this));
+        const ele = document.getElementById('kokka-loading')
+                if(ele !== undefined){
+                    // fade out
+                    setTimeout(() => {
+                      ele.classList.add('remove') 
+                    
+                    // remove from DOM
+                    ele.style.display = 'none'
+                    }, 3000)
+                     
+				}
 	}
 				  
 	componentWillUnmount() {
-		window.removeEventListener('resize', this.handleResize.bind(this));
+        root.removeEventListener('resize', this.handleResize.bind(this));
+        const ele = document.getElementById('kokka-loading')
+        if(ele !== undefined){
+            ele.classList.toggle('remove') 
+            // add to DOM
+            ele.style.display = 'flex'
+        }
 	} 
 		
 	handleResize() {
-		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0)});
+		this.setState({windowWidth: Math.max(document.documentElement.clientWidth, root.innerWidth || 0)});
     } 
     
     menuOpen =()=>{
