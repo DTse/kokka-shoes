@@ -55,6 +55,7 @@ class Home extends Component {
 			!this.state.isLoading && <div style={{ height: '100%', width: '100vw' }}>
                 <MainCarousel />
 				<MidBanners />
+                <div className="home-divider" />
 				<ProductsGrid products={this.state.products} en={context.en}/>
 				<Footer />
 			</div>)}
