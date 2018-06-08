@@ -755,7 +755,7 @@ html,
 }
 
 .product-image-main > img {
-	max-height: 500px;
+	max-height: 510px;
 	width: auto;
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
@@ -775,7 +775,7 @@ html,
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	max-height: 500px;
+	max-height: 510px;
 	cursor: pointer;
 }
 
@@ -996,6 +996,39 @@ html,
 	align-items: center;
 	font-size: 40px;
 	color: white;
+}
+
+
+.productScrollLeft{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: -130px;
+    max-height: 50px;
+    margin: auto;
+}
+.productScrollRight{
+	position: absolute;
+    right: 0;
+    bottom: 0;
+    top: -130px;
+    max-height: 50px;
+    margin: auto;
+}
+
+.productScrollRight,
+.productScrollLeft{
+    font-size: 40px;
+    padding: 10px;
+    color: gainsboro;
+    background-color: rgba(81, 81, 81, 0.9);
+    transition: all .2s ease-in-out ;
+}
+
+.productScrollRight:hover,
+.productScrollLeft:hover{
+    font-size: 42px;
+    padding: 12px;
 }
 
 /*************About, FindUs**************/

@@ -29,6 +29,12 @@ Route::get('products/category/{slug}', function ($slug) {
     
     return $category->products()->where('hidden', '1')->orderBy('order', 'DESC')->paginate(16);
 });
+Route::get('product/pagination/{slug}', function ($slug) {
+
+    $category = App\Categories::where('slug', $slug)->first();
+    
+    return $category == null ? App\Products::where('hidden', '1')->select(['id', 'slug', 'product_code'])->orderBy('category_id','DESC')->get() : $category->products()->select(['id', 'slug', 'product_code'])->where('hidden', '1')->orderBy('category_id','DESC')->get();
+});
 Route::get('product/category/{id}', function ($id) {
 
     $product = App\Products::where('id', $id)->first();
