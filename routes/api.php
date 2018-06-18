@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
 Route::get('products', function () {
-    return App\Products::where('hidden', '1')->paginate(16);
+    $page = Input::get('page', 1);
+    $paginate = 16;
+
+    $order = App\Products::where([['order', '<>', '0'],['hidden', '=', '1'] ])->orderBy('order', 'ASC')->get();
+    $anarchy = App\Products::where([['order', '=', '0'],['hidden', '=', '1'] ])->orderBy('updated_at', 'DESC')->get();
+
+    $final=$order->merge($anarchy);
+
+    $slice = array_slice($final->toArray(), $paginate * ($page - 1), $paginate);
+    $paginate = new Paginator ($slice, count($final), $paginate);
+
+    return $paginate;
 });
 Route::get('products/{slug}', function ($slug) {
     $slug = (string)$slug;
@@ -26,8 +40,19 @@ Route::get('products/{slug}', function ($slug) {
 Route::get('products/category/{slug}', function ($slug) {
 
     $category = App\Categories::where('slug', $slug)->first();
-    
-    return $category->products()->where('hidden', '1')->orderBy('order', 'DESC')->paginate(16);
+
+    $page = Input::get('page', 1);
+    $paginate = 16;
+
+    $order = $category->products()->where([['order', '<>', '0'],['hidden', '=', '1'] ])->orderBy('order', 'ASC')->get();
+    $anarchy = $category->products()->where([['order', '=', '0'],['hidden', '=', '1'] ])->orderBy('updated_at', 'DESC')->get();
+
+    $final=$order->merge($anarchy);
+
+    $slice = array_slice($final->toArray(), $paginate * ($page - 1), $paginate);
+    $paginate = new Paginator ($slice, count($final), $paginate);
+
+    return $paginate;
 });
 Route::get('product/pagination/{slug}', function ($slug) {
 

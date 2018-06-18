@@ -48,8 +48,8 @@
                                         </fieldset>@endforeach
                                         <div id="add-color" onclick="addNewColor()"><i style="padding: 0px 20px;" class="fas fa-plus"></i> <span id="image-name">Προσθήκη χρώματος</span><div>
                                     </label></td>
-                            </tr>  --}}
-                                    <tr><td class="column1"><label class="newproduct-label">Ενεργό</label></td> <td class="column2"><label id="hide-checkbox" class="container"><input id="hidden" type="checkbox" name="hidden" {{$product->hidden == 1 ? 'checked' : ''}}> <span class=" checkmark"></span></label></td></tr>
+                            </tr>  
+                                    <tr><td class="column1"><label class="newproduct-label">Ενεργό</label></td> <td class="column2"><label id="hide-checkbox" class="container"><input id="hidden" type="checkbox" name="hidden" {{$product->hidden == 1 ? 'checked' : ''}}> <span class=" checkmark"></span></label></td></tr>--}}
                             <tr><td class="column1"></td><td class="column2"><button type="submit" value="Υποβολη" id="submit" name="submit" class="submit-button">Υποβολη</button></td></tr>
                     </tbody>
                 </table>

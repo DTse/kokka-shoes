@@ -45,8 +45,8 @@
                             </td></tr>@endif
 						<tr><td class="column1"><label class="newproduct-label">Τιμή</label></td><td class="column2">{{$product->price}}</td></tr>
                         <tr><td class="column1"><label class="newproduct-label">Κατηγορία</label></td><td class="column2">{{$category->name_gr}}</td></tr>
-                        <tr><td class="column1"><label class="newproduct-label">Σειρά Sticky</label></td><td class="column2"><select name="order" id="order" class="used newproduct-input" onchange="changeOrder({{$product->product_code}}, this.value)">@for($i = 0; $i < 17; $i++)<option type="text" value="{{$i}}" {{$product->order == $i ? 'selected' : ''}}>{{$i}}</option>@endfor</select></td></tr>
-                        <tr><td class="column1"><label class="newproduct-label">Ενεργό</label></td> <td class="column2"><label id="hide-checkbox" class="container"><input id="hidden" type="checkbox" name="hidden" {{$product->hidden == 1 ? 'checked' : ''}} onchange="changeVisible({{$product->product_code}})"> <span class="checkmark"></span></label></td></tr>
+                        <tr><td class="column1"><label class="newproduct-label">Σειρά Sticky</label></td><td class="column2"><select name="order" id="order" class="used newproduct-input" onchange="changeOrder('{!! $product->product_code !!}', this.value)">@for($i = 0; $i < 17; $i++)<option type="text" value="{{$i}}" {{$product->order == $i ? 'selected' : ''}}>{{$i}}</option>@endfor</select></td></tr>
+                        <tr><td class="column1"><label class="newproduct-label">Ενεργό</label></td> <td class="column2"><label id="hide-checkbox" class="container"><input id="hidden" type="checkbox" name="hidden" {{$product->hidden == 1 ? 'checked' : ''}} onchange="changeVisible('{!! $product->product_code !!}')"> <span class="checkmark"></span></label></td></tr>
                         @if($product->colors_gr != '')<tr><td class="column1"><label class="newproduct-label">Χρώματα GR</label></td><td class="column2">
                         @php $colors = json_decode($product->colors_gr, true)@endphp
                         @foreach($colors as $color)    

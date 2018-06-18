@@ -27,10 +27,10 @@
                 <tbody>
                     @foreach($products as $cell)
                         <tr>
-                            <td class="column1"><img src="{{ !empty(json_decode($cell->images, true)[0][0]) ? url('images/shoes/'.$cell->product_code.'/'.json_decode($cell->images, true)[0][0]) : url('images/shoes/shoe.svg')}}" alt="shoe"></td>
+                            <td class="column1"><img src="{{ !empty(json_decode($cell->images, true)[0][0]) && file_exists('images/shoes/'.$cell->product_code.'/'.json_decode($cell->images, true)[0][0]) ? url('images/shoes/'.$cell->product_code.'/'.json_decode($cell->images, true)[0][0]) : url('images/shoes/shoe.svg')}}" alt="shoe"></td>
                             <td class="column2">{{ $cell->product_code }}</td>
-                            <td class="column2"><select name="order" id="order" class="used newproduct-input" onchange="changeOrder({{$cell->product_code}}, this.value)">@for($i = 0; $i < 17; $i++)<option type="text" value="{{$i}}" {{$cell->order == $i ? 'selected' : ''}}>{{$i}}</option>@endfor</select></td>
-                            <td class="column2"><label id="hide-checkbox" class="container"><input id="hidden" type="checkbox" name="hidden" {{$cell->hidden == 1 ? 'checked' : ''}} onchange="changeVisible({{$cell->product_code}})"> <span class="checkmark"></span></label></td>
+                            <td class="column2"><select name="order" id="order" class="used newproduct-input" onchange="changeOrder('{!! $cell->product_code !!}', this.value)">@for($i = 0; $i < 17; $i++)<option type="text" value="{{$i}}" {{$cell->order == $i ? 'selected' : ''}}>{{$i}}</option>@endfor</select></td>
+                            <td class="column2"><label id="hide-checkbox" class="container"><input id="hidden" type="checkbox" name="hidden" {{$cell->hidden == 1 ? 'checked' : ''}} onchange="changeVisible('{!! $cell->product_code !!}')"> <span class="checkmark"></span></label></td>
                             <td class="column3">{{ $cell->name_gr }}</td>
                                 @foreach($categories as $category)
                                     @if($cell->category_id === $category->category_id)

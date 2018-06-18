@@ -27,8 +27,8 @@ class RequestController extends Controller {
 
 
   public function enableRequest(Request $request, $id){
-
-        $product = Products::where('product_code', $id)->first();
+      
+        $product = Products::where('product_code', (string)$id)->first();
     
         $product->hidden = $request->enabled;
     

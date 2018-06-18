@@ -87,13 +87,14 @@ class ProductsController extends Controller {
             $colors_en = $request->colors_en;
             //echo '<pre>'; print_r($colors_en); echo '</pre>'; exit;
             $images=$request->images;
+            File::makeDirectory(public_path().'/images/shoes/'.$request->product_code);
             $i = 0;
             $j = 0; 
             foreach($images as $color){ 
                 foreach($color as $image){
                     $j++;
-                    $name = $colors_en[$i].'-'.str_slug($request->name_en, '-').'-'.$request->product_code.'-'.$j.'.'.$image->getClientOriginalExtension();
-                    $name = str_slug($name, '-');
+                    $name = str_slug($colors_en[$i], '-').'-'.str_slug($request->name_en, '-').'-'.$request->product_code.'-'.$j.'.'.$image->getClientOriginalExtension();
+                    //$name = str_slug($name, '-');
                     $file = $image->storeAs('/images/shoes/'.$request->product_code, $name);
                     $imageArr[$i][] = $name;
                 }
@@ -186,7 +187,6 @@ class ProductsController extends Controller {
             "fiapa_height"   => 'numeric|nullable',
             "takouni_height" => 'numeric|nullable',
             "category_id"    => 'numeric|nullable',
-            "hidden"         => 'accepted|nullable',
             "order"          => 'numeric|nullable',
 			"price"          => 'numeric|nullable'
         );
@@ -257,8 +257,6 @@ class ProductsController extends Controller {
             if($request->category_id != null){$product->category_id        = $request->category_id;}
 			if($request->price != null){$product->price        = $request->price;}
 			if($request->sizes != null){$product->sizes        = $sizes;}
-            if($request->hidden == "on"){$product->hidden = 1;}
-            else{$product->hidden = 0;}
             if($request->order != null){$product->order                    = $request->order;}
             $product->update();
 

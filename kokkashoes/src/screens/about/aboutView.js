@@ -7,8 +7,14 @@ import {LanguageContext} from '../../components/languageContext';
 
 import root from 'window-or-global';
 
+import ReactGA from 'react-ga';
+
+import { Helmet } from "react-helmet";
+
 import Footer from '../../components/footer';
 import Header from '../../components/header';
+
+import AboutImg from '../../images/about-us.jpg';
 
 class About extends Component {
 	constructor(props) {
@@ -21,6 +27,7 @@ class About extends Component {
 	}
 		
 	componentDidMount() {
+        ReactGA.pageview(this.props.match.url);
         root.addEventListener('resize', this.handleResize.bind(this));
         const ele = document.getElementById('kokka-loading')
         if(ele !== undefined){
@@ -54,10 +61,29 @@ class About extends Component {
 	}
 
 	render() {
-		return (
+        return (
 			<LanguageContext.Consumer>
 			{(context) => (
 			<div className="main-wrapper site-scroll" style={{ backgroundColor: 'transparent', position: 'initial' }}>
+            <Helmet
+                    title={`${context.en ? 'About us' : 'Ποίοι είμαστε'} | KOKKA SHOES`}
+                    meta={[
+                        { name: "description", content: context.en ? 'Our company, KOKKAshoes, has been involved in the footwear industry since 1977 and our experience is our main criterion when it comes to making elegant and comfortable shoes for our customers.' : 'Η εταιρεία KOKKAshoes δραστηριοποιείται στο χώρο κατασκευής υποδημάτων από το 1977 και η εμπειρία μας είναι το βασικό μας κριτήριο όταν φτιάχνουμε κομψά και άνετα παπούτσια για τους πελάτες μας.' },
+                        { property: "og:description", content: context.en ? 'Our company, KOKKAshoes, has been involved in the footwear industry since 1977 and our experience is our main criterion when it comes to making elegant and comfortable shoes for our customers.' : 'Η εταιρεία KOKKAshoes δραστηριοποιείται στο χώρο κατασκευής υποδημάτων από το 1977 και η εμπειρία μας είναι το βασικό μας κριτήριο όταν φτιάχνουμε κομψά και άνετα παπούτσια για τους πελάτες μας.' },
+                        { property: "og:type", content: "business.business" },
+                        { property: "og:title", content: `${context.en ? 'About us' : 'Ποίοι είμαστε'} | KOKKA SHOES`},
+                        { property: "og:image", content: 'https://kokkashoes.com'+AboutImg },
+                        { property: "og:url", content: `https://kokkashoes.com/${context.en ? 'en' : 'el'}/about-us` },
+                        { name: "twitter:card", content: "summary" },
+                        { name: "twitter:url", content:`https://kokkashoes.com/${context.en ? 'en' : 'el'}/about-us` },
+                        { name: "twitter:title", content: `${context.en ? 'About us' : 'Ποίοι είμαστε'} | KOKKA SHOES` },
+                        { name: "twitter:description", content: context.en ? 'Our company, KOKKAshoes, has been involved in the footwear industry since 1977 and our experience is our main criterion when it comes to making elegant and comfortable shoes for our customers.' : 'Η εταιρεία KOKKAshoes δραστηριοποιείται στο χώρο κατασκευής υποδημάτων από το 1977 και η εμπειρία μας είναι το βασικό μας κριτήριο όταν φτιάχνουμε κομψά και άνετα παπούτσια για τους πελάτες μας.' },
+                        { name: "twitter:image", content: 'https://kokkashoes.com'+AboutImg },
+                        { itemprop: "name", content: `${context.en ? 'About us' : 'Ποίοι είμαστε'} | KOKKA SHOES` },
+                        { itemprop: "description", content: context.en ? 'Our company, KOKKAshoes, has been involved in the footwear industry since 1977 and our experience is our main criterion when it comes to making elegant and comfortable shoes for our customers.' : 'Η εταιρεία KOKKAshoes δραστηριοποιείται στο χώρο κατασκευής υποδημάτων από το 1977 και η εμπειρία μας είναι το βασικό μας κριτήριο όταν φτιάχνουμε κομψά και άνετα παπούτσια για τους πελάτες μας.'},
+                        { itemprop: "image", content: 'https://kokkashoes.com'+AboutImg}
+                    ]}
+                />
 				<div className="header" style={{ zIndex: 99}}><span style={{zIndex: 99, width: '100%', backgroundColor: 'black'}}><Header  menuOpen={this.menuOpen.bind(this)} isOpen={this.state.isOpen}/></span>
                 {this.state.windowWidth <= 1100 && <div className={`side-menu ${this.state.isTop ? '' : 'scroll'}`} style={!this.state.isOpen ? {WebkitTransform: 'translateY(-410px)', MsTransform: 'translateY(-410px)', transform: 'translateY(-410px)'}: null}>
                     <MenuLinks />

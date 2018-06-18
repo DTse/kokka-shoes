@@ -8,6 +8,8 @@ import { MenuLinks } from '../../components/menuLinks';
 
 import root from 'window-or-global';
 
+import ReactGA from 'react-ga';
+
 import axios from 'axios';
 
 import {
@@ -58,14 +60,15 @@ class Product extends Component {
 	}
 
 	componentDidMount() {
+		ReactGA.pageview(this.props.match.url);
 		root.addEventListener('resize', this.handleResize.bind(this));
 		const slug = this.props.match.params.productSlug
-		axios.get('http://cms.kokkashoes.tk/api/products/' + slug).then(async (result) => {
+		axios.get('https://cms.kokkashoes.com/api/products/' + slug).then(async (result) => {
 			this.getCategory(result.data[0].id);
 			var { productPagination } = this.props.location.state || {};
 
 			if (productPagination === undefined) {
-				await axios.get('http://cms.kokkashoes.tk/api/product/pagination/all').then((result) => {
+				await axios.get('https://cms.kokkashoes.com/api/product/pagination/all').then((result) => {
 					productPagination = result.data;
 				})
 			}
@@ -98,7 +101,7 @@ class Product extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.match.params.productSlug !== prevProps.match.params.productSlug) {
 			const slug = this.props.match.params.productSlug
-			axios.get('http://cms.kokkashoes.tk/api/products/' + slug).then((result) => {
+			axios.get('https://cms.kokkashoes.com/api/products/' + slug).then((result) => {
 				this.getCategory(result.data[0].id);
 
 				this.setState({
@@ -116,7 +119,7 @@ class Product extends Component {
 	}
 
 	getCategory = async (id) => {
-		var category_slug = await axios.get(`http://cms.kokkashoes.tk/api/product/category/${id}`);
+		var category_slug = await axios.get(`https://cms.kokkashoes.com/api/product/category/${id}`);
 		category_slug = category_slug.data[0];
 		this.setState({ category: category_slug });
 	}
@@ -182,31 +185,49 @@ class Product extends Component {
 					title={`${en ? product.name_en : product.name_gr} | KOKKA SHOES`}
 					meta={[
 						{ name: "description", content: en ? product.description_en : product.description_gr },
-						{ name: "keywords", content: `${product.name_gr}, ${product.name_en}, ${product.product_code}, ${category.name_en}, ${category.name_gr}, KOKKA SHOES, shoes` },
 						{ property: "og:description", content: en ? product.description_en : product.description_gr },
 						{ property: "og:type", content: "product" },
 						{ property: "og:title", content: en ? product.name_en : product.name_gr },
-						{ property: "og:image", content: `http://kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}` },
-						{ property: "og:url", content: `http://kokkashoes.tk/${en ? 'en' : 'el'}/product/${product.slug}` },
-						{ property: "fb:app_id", content: "123456789" },
+						{ property: "og:image", content: `https://kokkashoes.com/images/shoes/${product.product_code}/${images[0][0]}` },
+						{ property: "og:url", content: `https://kokkashoes.com/${en ? 'en' : 'el'}/product/${product.slug}` },
 						{ property: "og:site_name", content: "KOKKA SHOES" },
 						{ property: "og:locale", content: en ? "en_US" : "el_GR" },
 						{ name: "twitter:card", content: "summary" },
-						{ name: "twitter:url", content: `http://kokkashoes.tk/${en ? 'en' : 'el'}/product/${product.slug}` },
+						{ name: "twitter:url", content: `https://kokkashoes.com/${en ? 'en' : 'el'}/product/${product.slug}` },
 						{ name: "twitter:title", content: `${en ? product.name_en : product.name_gr} | KOKKA SHOES` },
 						{ name: "twitter:description", content: en ? product.description_en : product.description_gr },
-						{ name: "twitter:image", content: `http://kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}` }
+						{ name: "twitter:image", content: `https://kokkashoes.com/images/shoes/${product.product_code}/${images[0][0]}` },
+                        { itemprop: "name", content: `${en ? product.name_en : product.name_gr} | KOKKA SHOES` },
+                        { itemprop: "description", content: en ? product.description_en : product.description_gr},
+                        { itemprop: "image", content: `https://kokkashoes.com/images/shoes/${product.product_code}/${images[0][0]}`}
 					]}
-				/>
+				>
+					<script type="application/ld+json">
+						{`{
+						"@context": "http://schema.org/",
+						"@type": "Product",
+						"name": "${en ? product.name_en : product.name_gr}",
+						"image": [
+							${images.map((color)=>{return color.map((image)=>{return `"https://kokkashoes.com/images/shoes/${product.product_code}/${image},"\n`}) })}
+						],
+						"description": "${en ? product.description_en : product.description_gr}",
+						"sku": "${product.product_code}",
+						"brand": {
+							"@type": "Thing",
+							"name": "KOKKA SHOES"
+						}
+						}`}
+					</script>
+				</Helmet>
 				<div className="header" style={{ zIndex: 99 }}><span style={{ zIndex: 99, width: '100%', backgroundColor: 'black' }}><Header menuOpen={this.menuOpen.bind(this)} isOpen={this.state.isOpen} /></span>
 					{this.state.windowWidth <= 1100 && <div className={`side-menu ${this.state.isTop ? '' : 'scroll'}`} style={!this.state.isOpen ? { WebkitTransform: 'translateY(-410px)', MsTransform: 'translateY(-410px)', transform: 'translateY(-410px)' } : null}>
 						<MenuLinks />
 					</div>}
 
-				</div><div className="breadcrumbs"><Link to={en ? '/en' : '/el'}>{en ? 'Home' : 'Αρχική'}</Link><span>{'>'}</span><Link to={`${en ? '/en' : '/el'}/catalog/${category.slug}`}>{en ? category.name_en : category.name_gr}</Link></div>
+				</div><div className="breadcrumbs"><Link to={en ? '/en' : '/el'}>{en ? 'Home' : 'Αρχική'}</Link><span>{'>'}</span><Link to={en ? '/en/catalog' : '/el/catalog'}>{en ? 'Catalog' : 'Κατάλογος'}</Link><span>{'>'}</span><Link to={`${en ? '/en' : '/el'}/catalog/${category.slug}`}>{en ? category.name_en : category.name_gr}</Link></div>
 				<div className="product">
-					{productIndex > 0 && <Link to={{ pathname: `/${en ? 'en' : 'el'}/product/${productPagination[this.state.productIndex - 1].slug}`, state: { productPagination: productPagination } }} className="productScrollLeft"><i className="fas fa-angle-left"></i></Link>}
-					{productIndex < productPagination.length && <Link to={{ pathname: `/${en ? 'en' : 'el'}/product/${productPagination[this.state.productIndex + 1].slug}`, state: { productPagination: productPagination } }} className="productScrollRight"><i className="fas fa-angle-right"></i></Link>}
+					{productIndex > 0 ? <Link to={{ pathname: `/${en ? 'en' : 'el'}/product/${productPagination[this.state.productIndex - 1].slug}`, state: { productPagination: productPagination } }} className="productScrollLeft"><i className="fas fa-arrow-left"></i></Link> : <span className="productScrollLeft disabled"><i className="fas fa-arrow-left"></i></span>}
+					{productIndex < (productPagination.length-1) ? <Link to={{ pathname: `/${en ? 'en' : 'el'}/product/${productPagination[this.state.productIndex + 1].slug}`, state: { productPagination: productPagination } }} className="productScrollRight"><i className="fas fa-arrow-right"></i></Link>:<span className="productScrollRight disabled"><i className="fas fa-arrow-right"></i></span>}
 					<div className="product-photo">
 						<div className="sideWrapper">
 							{images.length !== 0 && <div className="product-image-side" ref={(el) => { this.divWidth = el; }}>
@@ -218,12 +239,14 @@ class Product extends Component {
 											alt={en ? "Image for product" + product.name_en : "Εικονα για το προιον " + product.name_gr}
 											title={en ? product.name_en : product.name_gr}
 											onClick={() => { this.changeImage(image) }}
-											src={`http://kokkashoes.tk/images/shoes/${product.product_code}/${image}`}
+											src={`https://kokkashoes.com/images/shoes/${product.product_code}/${image}`}
 										/>
 									})
 								})}
 							</div>}
-							{sideImages > 3 && sideImages !== null && <div className="scrollWrapper">
+							{root.innerWidth<991 && sideImages > 3 && sideImages !== null &&<span onClick={() => { this.scrollThumbs(this.state.index - 1) }} className="scrollSpanUp"><i className="fas fa-angle-up"></i></span>}
+							{root.innerWidth<991 && sideImages > 3 && sideImages !== null &&<span onClick={() => { this.scrollThumbs(this.state.index + 1) }} className="scrollSpanDown"><i className="fas fa-angle-down"></i></span>}
+							{root.innerWidth>990 && sideImages > 3 && sideImages !== null && <div className="scrollWrapper">
 								<span onClick={() => { this.scrollThumbs(this.state.index - 1) }} className="scrollSpan"><i className="fas fa-angle-up"></i></span>
 								<span onClick={() => { this.scrollThumbs(this.state.index + 1) }} className="scrollSpan"><i className="fas fa-angle-down"></i></span>
 							</div>}
@@ -235,17 +258,17 @@ class Product extends Component {
                                 offset={{vertical: 0, horizontal: root.innerWidth < 721 ? -338 : 10}}
 								alt={en ? "Image for product" + product.name_en : "Εικονα για το προιον " + product.name_gr}
 								title={en ? product.name_en : product.name_gr}
-								img={`http://kokkashoes.tk/images/shoes/${product.product_code}/${this.state.imageSrc}`} />
+								img={`https://kokkashoes.com/images/shoes/${product.product_code}/${this.state.imageSrc}`} />
 						</div>
 					</div>
 					<div className="product-info">
 						<div className="product-name product-page"><h1>{en ? product.name_en : product.name_gr}</h1></div>
-						<div className="product-price">{en ? 'Price' : 'Τιμή'}: {product.price}€</div>
+						{/* <div className="product-price">{en ? 'Price' : 'Τιμή'}: {product.price}€</div> */}
 						<div className="product-code">{en ? 'Product Code' : 'Κωδικός'}: {product.product_code}</div>
 						<div className="product-heights">
-							{product.height !== null && <span>{en ? 'Sole Height' : 'Ύψος Σόλας'}: {product.height}εκ.</span>}
-							{product.fiapa_height !== null && <span>{en ? 'Heel Height' : 'Ύψος Τακουνιού'}: {product.takouni_height}εκ.</span>}<br />
-							{product.takouni_height !== null && <span>{en ? 'Fiapa Height' : 'Ύψος Φιάπας'}: {product.fiapa_height}εκ.</span>}
+							{product.height !== null && <span>{en ? 'Sole Height' : 'Ύψος Σόλας'}: {parseFloat(product.height)} cm</span>}
+							{product.takouni_height !== null && <span>{en ? 'Heel Height' : 'Ύψος Τακουνιού'}: {parseFloat(product.takouni_height)} cm</span>}<br />
+							{product.fiapa_height !== null && <span>{en ? 'Fiapa Height' : 'Ύψος Φιάπας'}: {parseFloat(product.fiapa_height)} cm</span>}
 						</div>
 						<div className="product-colors">{en ? 'Color' : 'Χρώμα'}:</div>
 						<div className="product-colors">
@@ -267,14 +290,14 @@ class Product extends Component {
 								<p>Instagram</p>
 							</a> */}
 							<FacebookShareButton
-								url={`http://kokkashoes.tk/${en ? 'en' : 'el'}product/${product.slug}`}
+								url={`https://kokkashoes.com/${en ? 'en' : 'el'}product/${product.slug}`}
 								quote={en ? product.description_en : product.description_gr}>
 								<i className="fab fa-facebook-f" />
 								<p>Facebook</p>
 							</FacebookShareButton>
 							<PinterestShareButton
-								url={`http://kokkashoes.tk/${en ? 'en' : 'el'}product/${product.slug}`}
-								media={`http://kokkashoes.tk/images/shoes/${product.product_code}/${images[0][0]}`}
+								url={`https://kokkashoes.com/${en ? 'en' : 'el'}product/${product.slug}`}
+								media={`https://kokkashoes.com/images/shoes/${product.product_code}/${images[0][0]}`}
 								windowWidth={1000}
 								windowHeight={730}>
 								<i className="fab fa-pinterest-p" />

@@ -9,14 +9,18 @@ import {
 } from "react-google-maps";
 
 import {LanguageContext} from '../../components/languageContext';
-
+import { Helmet } from "react-helmet";
 import '../../App.css';
 import { MenuLinks } from '../../components/menuLinks';
 
-import root from 'window-or-global'
+import root from 'window-or-global';
+
+import ReactGA from 'react-ga';
 
 import Footer from '../../components/footer';
 import Header from '../../components/header';
+
+import FindImg from '../../images/find-us-top.jpg';
 
 class FindUs extends Component {
     constructor(props) {
@@ -29,6 +33,7 @@ class FindUs extends Component {
 	}
 		
 	componentDidMount() {
+        ReactGA.pageview(this.props.match.url);
         root.addEventListener('resize', this.handleResize.bind(this));
         const ele = document.getElementById('kokka-loading')
                 if(ele !== undefined){
@@ -61,11 +66,30 @@ class FindUs extends Component {
 		this.setState({isOpen: !this.state.isOpen});
 	}
 
-	render() {
-		return (
+    render() {
+        return (
 			<LanguageContext.Consumer>
 			{(context) => (
 			<div className="main-wrapper site-scroll" style={{ backgroundColor: 'transparent', position: 'initial'}}>
+            <Helmet
+                    title={`${context.en ? 'Contact us' : 'Επικοινωνία'} | KOKKA SHOES`}
+                    meta={[
+                        { name: "description", content: context.en ? 'Information and ways to communicate with the company as well as the KOKKA SHOES store!' : 'Πληροφορίες και τρόποι επικοινωνίας με την εταιρία αλλά και το κατάστημα KOKKA SHOES!' },
+                        { property: "og:description", content: context.en ? 'Information and ways to communicate with the company as well as the KOKKA SHOES store!' : 'Πληροφορίες και τρόποι επικοινωνίας με την εταιρία αλλά και το κατάστημα KOKKA SHOES!' },
+                        { property: "og:type", content: "business.business" },
+                        { property: "og:title", content: `${context.en ? 'Contact us' : 'Επικοινωνία'} | KOKKA SHOES`},
+                        { property: "og:image", content: 'https://kokkashoes.com'+FindImg },
+                        { property: "og:url", content: `https://kokkashoes.com/${context.en ? 'en' : 'el'}/company` },
+                        { name: "twitter:card", content: "summary" },
+                        { name: "twitter:url", content:`https://kokkashoes.com/${context.en ? 'en' : 'el'}/company` },
+                        { name: "twitter:title", content: `${context.en ? 'Contact us' : 'Επικοινωνία'} | KOKKA SHOES` },
+                        { name: "twitter:description", content: context.en ? 'Information and ways to communicate with the company as well as the KOKKA SHOES store!' : 'Πληροφορίες και τρόποι επικοινωνίας με την εταιρία αλλά και το κατάστημα KOKKA SHOES!' },
+                        { name: "twitter:image", content: 'https://kokkashoes.com'+FindImg },
+                        { itemprop: "name", content: `${context.en ? 'Contact us' : 'Επικοινωνία'} | KOKKA SHOES` },
+                        { itemprop: "description", content: context.en ? 'Information and ways to communicate with the company as well as the KOKKA SHOES store!' : 'Πληροφορίες και τρόποι επικοινωνίας με την εταιρία αλλά και το κατάστημα KOKKA SHOES!'},
+                        { itemprop: "image", content: 'https://kokkashoes.com'+FindImg}
+                    ]}
+                />
 				<div className="header" style={{ zIndex: 99}}><span style={{zIndex: 99, width: '100%', backgroundColor: 'black'}}><Header  menuOpen={this.menuOpen.bind(this)} isOpen={this.state.isOpen}/></span>
                 {this.state.windowWidth <= 1100 && <div className={`side-menu ${this.state.isTop ? '' : 'scroll'}`} style={!this.state.isOpen ? {WebkitTransform: 'translateY(-410px)', MsTransform: 'translateY(-410px)', transform: 'translateY(-410px)'}: null}>
                     <MenuLinks />
@@ -92,7 +116,7 @@ class FindUs extends Component {
 						<div className="find-us-store-description">
 							<h1>{context.en ? 'Shop' : 'Κατάστημα'}</h1>
 							{context.en ? 'Andrianou 114, Athens' : 'Αδριανού 114, Αθήνα'} <br />
-              {context.en ? 'Zip Code' : 'T.K.'}: 10558<br />
+                            {context.en ? 'Zip Code' : 'T.K.'}: 10558<br />
 							{context.en ? 'Greece' : 'Ελλάδα'}<br />
 							{context.en ? 'Tel.' : 'Τηλ.'}: +30 210 3224460
 						</div>

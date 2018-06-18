@@ -25,7 +25,7 @@ export default class Footer extends Component {
 					</div>
 					<div className="column-2">
 						<p>{context.en ? 'Our socials' : 'Βρείτε μας στα social'}</p>
-						<a href="http://instagram.com/kokkashoes">
+						<a href="https://instagram.com/kokkashoes">
 							<i className="fab fa-instagram" />
 							<p>Instagram</p>
 						</a>
