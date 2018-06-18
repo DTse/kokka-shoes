@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import '../../App.css';
 
-import axios from 'axios';
+// import axios from 'axios';
+
+import ReactGA from 'react-ga';
 
 import {LanguageContext} from '../../components/languageContext';
 
@@ -18,14 +20,16 @@ class Home extends Component {
         super(props)
         
         this.state = {
-          products: [],
+          //products: [],
           isLoading: true
         };
       }
     
     componentDidMount(){
-        axios.get('http://cms.kokkashoes.tk/api/products').then((result)=>{
-            this.setState({products: result.data.data, isLoading: false},()=>{
+        ReactGA.pageview(this.props.match.url);
+        // axios.get('https://cms.kokkashoes.com/api/products').then((result)=>{
+        //     this.setState({products: result.data.data, isLoading: false},()=>{
+            this.setState({isLoading: false})
                 const ele = document.getElementById('kokka-loading')
                 if(ele){
                     // fade out
@@ -35,9 +39,9 @@ class Home extends Component {
                     ele.style.display = 'none'
                     }, 3000)
                 }
-            });
+        //     });
 
-        })
+        // })
     }
 
     componentWillUnmount(){
@@ -54,9 +58,9 @@ class Home extends Component {
 			{(context) => (
 			!this.state.isLoading && <div style={{ height: '100%', width: '100vw' }}>
                 <MainCarousel />
-				<MidBanners />
+				<MidBanners en={context.en}/>
                 <div className="home-divider" />
-				<ProductsGrid products={this.state.products} en={context.en}/>
+				<ProductsGrid en={context.en}/>
 				<Footer />
 			</div>)}
             </LanguageContext.Consumer>

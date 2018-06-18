@@ -1,30 +1,50 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import '../../App.css';
+import LazyLoad from 'react-lazyload';
 
 import {LanguageContext} from '../../components/languageContext';
 
 class ProductsGrid extends Component {
 	render() {
-    var products = this.props.products.slice(0, 4);
 		return (
             <LanguageContext.Consumer>
 			{(context) => (
         <div className="midroll">
-          {products.map((product, index) =>{
-            var images = JSON.parse(product.images)
-            return (
-            <div key={"container-"+index} className="container">
-                  <Link key={'img-link-'+index} to={(context.en ? '/en':'/el')+"/product/"+product.slug} className="product-front-img"><img  key={'img-'+index} src={'http://kokkashoes.tk/images/shoes/'+product.product_code+'/'+images[0][0]} alt={"Εικονα για το προιον "+product.name_gr} title={product.name_gr}/></Link>
-                <div key={'product-name-'+index} className="product-name">
-                  <Link key={'img-link-'+index} to={(context.en ? '/en':'/el')+"/product/"+product.slug} className="product-link"><h1 key={'product-h1-'+index}>{this.props.en ? product.name_en : product.name_gr}</h1></Link>
-                  <p key={'product-code-p-'+index}><span  key={'product-code-span-'+index}>{this.props.en ? 'Product Code' : 'Κωδικός'}:</span> {product.product_code}</p>
-                  <h3 key={'product-price-'+index}>20.99 ‎€</h3>
-                </div>
+          <div className="container">
+            <LazyLoad height={200} offset={100}><Link to={(context.en ? '/en':'/el')+"/product/leather-sandals-2830"} className="product-front-img"><img src={'https://kokkashoes.com/images/shoes/2830/natural-leather-sandals-2830-1.jpg'} alt={"Εικονα για το προιον "+this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'} title={this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'}/></Link></LazyLoad>
+              <div className="product-name">
+                <Link to={(context.en ? '/en':'/el')+"/product/leather-sandals-2830"} className="product-link"><h1 >{this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'}</h1></Link>
+                <p><span>{this.props.en ? 'Product Code' : 'Κωδικός'}:</span> 2830</p>
+                {/* <h3 key={'product-price-'+index}>20.99 ‎€</h3> */}
+              </div>
           </div>
-          )})
-          }
-        </div>)}
+          <div className="container">
+            <LazyLoad height={200} offset={100}><Link to={(context.en ? '/en':'/el')+"/product/leather-sandals-NT26"} className="product-front-img"><img src={'https://kokkashoes.com/images/shoes/NT26/blackgold-leather-sandals-nt26-1.jpg'} alt={"Εικονα για το προιον "+this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'} title={this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'}/></Link></LazyLoad>
+              <div className="product-name">
+                <Link to={(context.en ? '/en':'/el')+"/product/leather-sandals-NT26"} className="product-link"><h1 >{this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'}</h1></Link>
+                <p><span>{this.props.en ? 'Product Code' : 'Κωδικός'}:</span> ΝΤ26</p>
+                {/* <h3 key={'product-price-'+index}>20.99 ‎€</h3> */}
+              </div>
+          </div>
+          <div className="container">
+            <LazyLoad height={200} offset={100}><Link to={(context.en ? '/en':'/el')+"/product/leather-heeled-sandals-5422"} className="product-front-img"><img src={'https://kokkashoes.com/images/shoes/5422/beige-leather-heeled-sandals-5422-1.jpg'} alt={"Εικονα για το προιον "+this.props.en ? 'Leather Heeled Sandals' : 'Δερμάτινα Πέδιλα'} title={this.props.en ? 'Leather Heeled Sandals' : 'Δερμάτινα Πέδιλα'}/></Link></LazyLoad>
+              <div className="product-name">
+                <Link to={(context.en ? '/en':'/el')+"/product/leather-heeled-sandals-5422"} className="product-link"><h1 >{this.props.en ? 'Leather Heeled Sandals' : 'Δερμάτινα Πέδιλα'}</h1></Link>
+                <p><span>{this.props.en ? 'Product Code' : 'Κωδικός'}:</span> 5422</p>
+                {/* <h3 key={'product-price-'+index}>20.99 ‎€</h3> */}
+              </div>
+          </div>
+          <div className="container">
+            <LazyLoad height={200} offset={100}><Link to={(context.en ? '/en':'/el')+"/product/leather-sandals-13"} className="product-front-img"><img src={'https://kokkashoes.com/images/shoes/13/tampa-leather-sandals-13-1.jpg'} alt={"Εικονα για το προιον "+this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'} title={this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'}/></Link></LazyLoad>
+              <div className="product-name">
+                <Link to={(context.en ? '/en':'/el')+"/product/leather-sandals-13"} className="product-link"><h1 >{this.props.en ? 'Leather Sandals' : 'Δερμάτινα Σανδάλια'}</h1></Link>
+                <p><span>{this.props.en ? 'Product Code' : 'Κωδικός'}:</span> 13</p>
+                {/* <h3 key={'product-price-'+index}>20.99 ‎€</h3> */}
+              </div>
+          </div>
+        </div>
+      )}
         </LanguageContext.Consumer>
 		);
 	}

@@ -1,15 +1,15 @@
 {
-  "short_name": "KOKKA shoes",
-  "name": "KOKKAS shoes official page",
+  "short_name": "KOKKA SHOES",
+  "name": "KOKKAS SHOES",
   "icons": [
     {
       "src": "/icons/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "512x512 192x192 64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
   ],
-  "start_url": "index.html",
+  "start_url": "https://kokkashoes.com/",
   "display": "standalone",
   "theme_color": "#212121",
-  "background_color": "#ffffff"
+  "background_color": "#212121"
 }
