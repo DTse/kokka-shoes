@@ -290,13 +290,13 @@ class Product extends Component {
 								<p>Instagram</p>
 							</a> */}
 							<FacebookShareButton
-								url={`https://kokkashoes.com/${en ? 'en' : 'el'}product/${product.slug}`}
+								url={`https://kokkashoes.com/${en ? 'en' : 'el'}/product/${product.slug}`}
 								quote={en ? product.description_en : product.description_gr}>
 								<i className="fab fa-facebook-f" />
 								<p>Facebook</p>
 							</FacebookShareButton>
 							<PinterestShareButton
-								url={`https://kokkashoes.com/${en ? 'en' : 'el'}product/${product.slug}`}
+								url={`https://kokkashoes.com/${en ? 'en' : 'el'}/product/${product.slug}`}
 								media={`https://kokkashoes.com/images/shoes/${product.product_code}/${images[0][0]}`}
 								windowWidth={1000}
 								windowHeight={730}>

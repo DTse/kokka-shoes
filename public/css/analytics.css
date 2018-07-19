@@ -1,0 +1,40 @@
+/***********Header***********/
+    #headerData{
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        height: 150px;
+        width: 95%;
+        align-items: center;
+        justify-content: space-evenly;
+        text-align: center;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: white;
+        box-shadow: rgba(93, 93, 93, 0.31) 0px 3px 3px 1px;
+        border-radius: 10px;
+    }
+
+    .panels{
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        height: 150px;
+        width: 20%;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 25px;
+    }
+
+/***********Panels***********/
+    #pageViews, #visitorsGraph{
+        width: 95%;
+        background-color: white;
+        margin: 0 auto;
+        margin-top: 50px;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: rgba(93, 93, 93, 0.31) 0px 3px 3px 1px;
+    }

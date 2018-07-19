@@ -3,8 +3,8 @@ var imagemin = require("imagemin"),    // The imagemin module.
 //   outputFolder = "./src/images",        // PNG images
 //   JPEGImages = "./src/images/*.jpg";        // JPEG images
 
-  outputFolder = "../public/images/shoes/webp",        // PNG images
-  JPEGImages = "../public/images/shoes/*/*.jpg";        // JPEG images
+  outputFolder = "./src/images/",        // PNG images
+  JPEGImages = "./src/images/*.jpg";        // JPEG images
 
 imagemin([JPEGImages], outputFolder, {
   plugins: [webp({

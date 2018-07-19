@@ -55,7 +55,6 @@ class ProductsController extends Controller {
             "fiapa_height"   => 'numeric|nullable',
             "takouni_height" => 'numeric|nullable',
             "category_id"    => 'numeric|nullable',
-            "hidden"         => 'accepted|nullable',
             "colors_gr"      => 'array|nullable',
             "colors_en"      => 'array|nullable',
             "images"         => 'array|nullable',
@@ -63,7 +62,7 @@ class ProductsController extends Controller {
             "sizes"          => 'array|nullable'
         );
         $validator = Validator::make($request->all(), $rules);
-
+        
         // process the login
          if ($validator->fails()) {
              return view('products.add-product')
@@ -87,7 +86,7 @@ class ProductsController extends Controller {
             $colors_en = $request->colors_en;
             //echo '<pre>'; print_r($colors_en); echo '</pre>'; exit;
             $images=$request->images;
-            File::makeDirectory(public_path().'/images/shoes/'.$request->product_code);
+            //File::makeDirectory(public_path().'/images/shoes/'.$request->product_code);
             $i = 0;
             $j = 0; 
             foreach($images as $color){ 
@@ -122,8 +121,8 @@ class ProductsController extends Controller {
             $product->takouni_height  = $request->takouni_height;
             $product->category_id     = $request->category_id;
             $product->order           = $request->order;
-			if($request->price !==null){$product->price = $request->price;}
-            $product->hidden = ($request->hidden != null ? 1 : 0);
+            if($request->price !==null){$product->price = $request->price;}
+            $product->hidden          = $request->has('hidden')? 1 : 0;
             $product->save();
 
             // redirect

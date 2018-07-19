@@ -23,8 +23,8 @@ Route::get('products', function () {
     $page = Input::get('page', 1);
     $paginate = 16;
 
-    $order = App\Products::where([['order', '<>', '0'],['hidden', '=', '1'] ])->orderBy('order', 'ASC')->get();
-    $anarchy = App\Products::where([['order', '=', '0'],['hidden', '=', '1'] ])->orderBy('updated_at', 'DESC')->get();
+    $order = App\Products::where([['order', '<>', '0'],['hidden', '=', '1']])->orderBy('order', 'ASC')->get();
+    $anarchy = App\Products::where([['order', '=', '0'],['hidden', '=', '1']])->orderBy('updated_at', 'DESC')->get();
 
     $final=$order->merge($anarchy);
 
@@ -66,3 +66,10 @@ Route::get('product/category/{id}', function ($id) {
     
     return $product->category()->get();
 });
+Route::get('sitemap', function () {
+
+    $product = App\Products::pluck('slug');
+    
+    return $product;
+});
+

@@ -61,4 +61,5 @@
     @yield('view-product-script')
     @yield('edit-category-script')
     @yield('edit-product-script')
+    @yield('analytics-script')
 @stop

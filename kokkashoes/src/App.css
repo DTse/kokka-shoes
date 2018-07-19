@@ -1,31 +1,31 @@
 /*IE9*/
-*::selection 
-{
-    background-color:transparent;
-} 
-*::-moz-selection
-{
-    background-color:transparent;
-}
-*
-{        
-    -webkit-user-select: none;
-    -moz-user-select: -moz-none;
-    /*IE10*/
-    -ms-user-select: none;
-    user-select: none;
+    *::selection 
+    {
+        background-color:transparent;
+    } 
+    *::-moz-selection
+    {
+        background-color:transparent;
+    }
+    *
+    {        
+        -webkit-user-select: none;
+        -moz-user-select: -moz-none;
+        /*IE10*/
+        -ms-user-select: none;
+        user-select: none;
 
-    /*You just need this if you are only concerned with android and not desktop browsers.*/
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}    
+        /*You just need this if you are only concerned with android and not desktop browsers.*/
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }    
 
-input[type="text"], select, option, textarea, [contenteditable]
-{
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-}
+    input[type="text"], select, option, textarea, [contenteditable]
+    {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
 
 
 /***********Home and body***********/
@@ -349,16 +349,16 @@ input[type="text"], select, option, textarea, [contenteditable]
     }
 
     .webp .category-img1{
-        background-image: url(./images/category-img1.wepb);
+        background-image: url(./images/category-img1.webp);
     }
     .webp .category-img2{
-        background-image: url(./images/category-img2.wepb);
+        background-image: url(./images/category-img2.webp);
     }
     .webp .category-img3{
-        background-image: url(./images/category-img3.wepb);
+        background-image: url(./images/category-img3.webp);
     }
     .webp .category-img4{
-        background-image: url(./images/category-img4.wepb);
+        background-image: url(./images/category-img4.webp);
     }
     .no-webp .category-img1{
         background-image: url(./images/category-img1.jpg);
@@ -1316,7 +1316,7 @@ input[type="text"], select, option, textarea, [contenteditable]
     }
 /***********Media queries***********/
     @media only screen and (max-width: 1175px) {
-        .midroll > div:nth-child(2) {
+        .midroll > div:nth-child(4) {
             display: none;
         }
 
@@ -1416,7 +1416,7 @@ input[type="text"], select, option, textarea, [contenteditable]
 
     @media only screen and (max-width: 880px) {
 
-        .midroll > div:nth-child(2) {
+        .midroll > div:nth-child(4) {
             display: none;
         }
         .preroll {

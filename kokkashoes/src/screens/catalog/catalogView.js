@@ -65,6 +65,7 @@ class Catalog extends Component {
 	}
 
     async componentWillReceiveProps(nextProps, nextState){
+        ReactGA.pageview(this.props.match.url);
         await this.setState({isLoading: true});
         this.showTargetElement();
         root.scrollTo(0, 0);
@@ -194,7 +195,7 @@ class Catalog extends Component {
                             {
                                 "@type":"ListItem",
                                 "position":${index+1},
-                                "url":"http://kokkashoes.com/${context.en ? 'en':'el'}/${item.slug}"
+                                "url":"https://kokkashoes.com/${context.en ? 'en':'el'}/${item.slug}"
                             }`
                         })}
                         ]
