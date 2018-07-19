@@ -101,9 +101,9 @@ class App extends Component {
                                     "contactPoint": [
                                         { "@type": "ContactPoint",
                                           "telephone": "+30-210-4206263",
-                                          "contactType": "${context.en ? 'Παραγγελείες':'Orders'}"
+                                          "contactType": "sales"
                                         }
-                                      ]
+                                      ],
                                     "description": "${context.en ? description_en : description_gr}",
                                     "name": "KOKKA SHOES",
                                     "image": "https://kokkashoes.com${MainIMG}",
