@@ -59,10 +59,16 @@ export default class MainCarousel extends Component {
 				<div className={this.state.isTop ? 'main-wrapper' : 'main-wrapper site-scroll'} style={{zIndex: 1000}}>
 					<Header menuOpen={this.menuOpen.bind(this)} isOpen={this.state.isOpen}/>
 				</div> 
+                <p style={{
+							opacity: this.state.calc,
+							top: this.state.calc === 0 ? '0%' : '25%',
+                            fontSize: '4.5rem'
+						}} className="App-intro">
+						KOKKA SHOES
+					</p>
 				<p style={{
 							opacity: this.state.calc,
-							top: this.state.calc === 0 ? '0%' : '50%',
-							height: this.state.calc === 0 ? '0%' : '100%'
+                            top: this.state.calc === 0 ? '0%' : '50%',
 						}} className="App-intro">
 						Handcrafted in Greece
 					</p>
