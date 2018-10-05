@@ -24,8 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "postbuild": "react-snap"
+    "test": "react-scripts test --env=jsdom"
   },
   "devDependencies": {
     "imagemin": "^5.3.1",
